@@ -21,4 +21,15 @@ public class GeekUtil {
         Matcher matcher = pattern.matcher(value);
         return matcher.matches();
     }
+
+    /**
+     * 判断是否包含中文
+     * @param value 内容
+     * @return 结果
+     */
+    public static boolean containChinese(String value){
+        Pattern compile = Pattern.compile("[\u4e00-\u9fa5]");
+        Matcher matcher = compile.matcher(value);
+        return matcher.find();
+    }
 }
