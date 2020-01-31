@@ -93,5 +93,25 @@ public interface IUserService extends IService<User> {
      */
     void updateTheme(String username, String theme, String isTab);
 
+    /**
+     * 更新个人信息
+     *
+     * @param user 个人信息
+     */
     void updateProfile(User user);
+
+    /**
+     * 注册用户
+     *
+     * @param username 用户名
+     * @param password 密码
+     */
+    void regist(String username, String password);
+
+    /**
+     * 更新用户登录时间
+     *
+     * @param username 用户名
+     */
+    void updateLoginTime(String username);
 }

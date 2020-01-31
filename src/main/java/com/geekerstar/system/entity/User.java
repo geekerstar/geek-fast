@@ -86,7 +86,7 @@ public class User implements Serializable {
     private LocalDateTime lastLoginTime;
 
     @ApiModelProperty(value = "性别 0男 1女 2保密")
-    private String ssex;
+    private String sex;
 
     @ApiModelProperty(value = "是否开启tab，0关闭 1开启")
     private String isTab;

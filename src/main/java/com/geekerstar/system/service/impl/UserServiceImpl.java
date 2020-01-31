@@ -25,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -149,6 +150,33 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         } else {
             throw new GeekException("您无权修改别人的账号信息！");
         }
+    }
+
+    @Override
+    public void regist(String username, String password) {
+        User user = new User();
+        user.setPassword(MD5Util.encrypt(username, password));
+        user.setUsername(username);
+        user.setCreateTime(LocalDateTime.now());
+        user.setStatus(User.STATUS_VALID);
+        user.setSex(User.SEX_UNKNOW);
+        user.setAvatar(User.DEFAULT_AVATAR);
+        user.setTheme(User.THEME_BLACK);
+        user.setIsTab(User.TAB_OPEN);
+        user.setDescription("注册用户");
+        this.save(user);
+
+        UserRole ur = new UserRole();
+        ur.setUserId(user.getUserId());
+        ur.setRoleId(GeekConstant.REGISTER_ROLE_ID);
+        this.userRoleService.save(ur);
+    }
+
+    @Override
+    public void updateLoginTime(String username) {
+        User user = new User();
+        user.setLastLoginTime(LocalDateTime.now());
+        this.baseMapper.update(user, new LambdaQueryWrapper<User>().eq(User::getUsername, username));
     }
 
     private void setUserRoles(User user, String[] roles) {

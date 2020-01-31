@@ -21,7 +21,7 @@
          SELECT
             m.*
         FROM
-            t_menu m
+            sys_menu m
         WHERE
             m.type &lt;&gt; 1
         AND m.MENU_ID IN (

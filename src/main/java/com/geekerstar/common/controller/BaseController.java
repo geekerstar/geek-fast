@@ -3,6 +3,7 @@ package com.geekerstar.common.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.geekerstar.common.entity.GeekConstant;
+import com.geekerstar.system.entity.User;
 import com.google.common.collect.Maps;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -20,6 +21,10 @@ public class BaseController {
 
     private Subject getSubject() {
         return SecurityUtils.getSubject();
+    }
+
+    protected User getCurrentUser() {
+        return (User) getSubject().getPrincipal();
     }
 
     protected Session getSession() {
