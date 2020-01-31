@@ -17,9 +17,10 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <mysql.version>5.1.48</mysql.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <mybatis.plus.version>3.2.0</mybatis.plus.version>
+        <mybatis.plus.version>3.3.0</mybatis.plus.version>
         <swagger.ui>2.9.2</swagger.ui>
     </properties>
 
@@ -105,6 +106,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
             <scope>runtime</scope>
         </dependency>
 
