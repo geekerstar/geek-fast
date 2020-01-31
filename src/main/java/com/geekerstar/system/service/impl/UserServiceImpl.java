@@ -25,7 +25,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -45,7 +44,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         User user = new User();
         user.setUsername(username);
         List<User> userList = this.baseMapper.findUserDetail(user);
-        return CollectionUtils.isNotEmpty(userList)?userList.get(0):null;
+        return CollectionUtils.isNotEmpty(userList) ? userList.get(0) : null;
     }
 
     @Override

@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 用户角色关联表 UserRoleController 前端控制器
+ * 角色菜单关联表 RoleMenuController 前端控制器
  *
  * @author Geekerstar
  * @since 2020-01-31
  */
 @Slf4j
 @RestController
-@RequestMapping("/user-role")
-public class UserRoleController {
+@RequestMapping("/role-menu")
+public class RoleMenuController {
 
 }

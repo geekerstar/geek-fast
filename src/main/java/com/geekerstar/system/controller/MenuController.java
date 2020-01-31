@@ -4,7 +4,6 @@ package com.geekerstar.system.controller;
 import com.geekerstar.common.annotation.ControllerEndPoint;
 import com.geekerstar.common.entity.GeekResponse;
 import com.geekerstar.common.exception.GeekException;
-import com.geekerstar.system.entity.User;
 import com.geekerstar.system.service.IMenuService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;

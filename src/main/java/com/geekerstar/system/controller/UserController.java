@@ -48,18 +48,18 @@ public class UserController extends BaseController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "username", value = "用户名", paramType = "query", required = true, defaultValue = "")
     })
-    public User getUser(@NotBlank(message = "{required}") @PathVariable String username){
+    public User getUser(@NotBlank(message = "{required}") @PathVariable String username) {
         return this.userService.findUserDetailList(username);
     }
 
     @GetMapping("check/{username}")
-    public Boolean checkUserName(@NotBlank(message = "{required}") @PathVariable String username, String userId){
+    public Boolean checkUserName(@NotBlank(message = "{required}") @PathVariable String username, String userId) {
         return this.userService.findByName(username) == null || StringUtils.isNotBlank(userId);
     }
 
     @GetMapping("list")
     @RequiresPermissions("user:view")
-    public GeekResponse userList(User user, QueryRequest request){
+    public GeekResponse userList(User user, QueryRequest request) {
         Map<String, Object> dataTable = getDataTable(this.userService.findUserDetailList(user, request));
         return new GeekResponse().success().data(dataTable);
     }

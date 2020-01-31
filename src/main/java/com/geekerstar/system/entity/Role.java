@@ -44,4 +44,9 @@ public class Role implements Serializable {
     private LocalDateTime modifyTime;
 
 
+    /**
+     * 角色对应的菜单（按钮） id
+     */
+    private transient String menuIds;
+
 }
