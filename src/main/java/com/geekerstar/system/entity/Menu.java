@@ -27,6 +27,13 @@ public class Menu implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    // 菜单
+    public static final String TYPE_MENU = "0";
+    // 按钮
+    public static final String TYPE_BUTTON = "1";
+
+    public static final Long TOP_NODE = 0L;
+
     @ApiModelProperty(value = "菜单/按钮id")
     @TableId(value = "menu_id", type = IdType.AUTO)
     private Long menuId;
