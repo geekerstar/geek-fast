@@ -63,7 +63,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void createDept(Dept dept) {
         Long parentId = dept.getParentId();
         if (parentId == null) {
@@ -74,13 +74,13 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void removeDepts(String[] ids) {
         this.delete(Arrays.asList(ids));
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void updateDept(Dept dept) {
         dept.setModifyTime(LocalDateTime.now());
         this.baseMapper.updateById(dept);

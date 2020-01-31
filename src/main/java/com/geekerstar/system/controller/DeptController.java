@@ -59,6 +59,7 @@ public class DeptController {
 
     @PostMapping
     @RequiresPermissions("dept:add")
+    @ApiOperation(value = "新增部门", notes = "新增部门")
     @ControllerEndPoint(operation = "新增部门", exceptionMessage = "新增部门失败")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "dept", value = "部门", paramType = "body", required = true, defaultValue = "")
@@ -70,6 +71,7 @@ public class DeptController {
 
     @GetMapping("delete/{deptIds}")
     @RequiresPermissions("dept:delete")
+    @ApiOperation(value = "删除部门", notes = "删除部门")
     @ControllerEndPoint(operation = "删除部门", exceptionMessage = "删除部门失败")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "deptIds", value = "部门id", paramType = "query", required = true, defaultValue = "")
@@ -82,6 +84,7 @@ public class DeptController {
 
     @PostMapping("update")
     @RequiresPermissions("dept:update")
+    @ApiOperation(value = "修改部门", notes = "修改部门")
     @ControllerEndPoint(operation = "修改部门", exceptionMessage = "修改部门失败")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "dept", value = "部门", paramType = "body", required = true, defaultValue = "")
@@ -93,6 +96,7 @@ public class DeptController {
 
     @GetMapping("excel")
     @RequiresPermissions("dept:export")
+    @ApiOperation(value = "导出Excel", notes = "导出Excel")
     @ControllerEndPoint(operation = "导出Excel", exceptionMessage = "导出Excel失败")
     public void export(Dept dept, QueryRequest request, HttpServletResponse response) throws GeekException {
         List<Dept> deptList = this.deptService.findDepts(dept, request);

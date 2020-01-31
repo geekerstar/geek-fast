@@ -1,14 +1,18 @@
 package com.geekerstar.system.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.wuwenze.poi.annotation.Excel;
+import com.wuwenze.poi.annotation.ExcelField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -19,6 +23,7 @@ import java.time.LocalDateTime;
  * @since 2020-01-31
  */
 @Data
+@Excel("用户信息表")
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("sys_user")
@@ -26,6 +31,29 @@ import java.time.LocalDateTime;
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    // 用户状态：有效
+    public static final String STATUS_VALID = "1";
+    // 用户状态：锁定
+    public static final String STATUS_LOCK = "0";
+    // 默认头像
+    public static final String DEFAULT_AVATAR = "default.jpg";
+    // 默认密码
+    public static final String DEFAULT_PASSWORD = "123456";
+    // 性别男
+    public static final String SEX_MALE = "0";
+    // 性别女
+    public static final String SEX_FEMALE = "1";
+    // 性别保密
+    public static final String SEX_UNKNOW = "2";
+    // 黑色主题
+    public static final String THEME_BLACK = "black";
+    // 白色主题
+    public static final String THEME_WHITE = "white";
+    // TAB开启
+    public static final String TAB_OPEN = "1";
+    // TAB关闭
+    public static final String TAB_CLOSE = "0";
 
     @ApiModelProperty(value = "用户id")
     @TableId(value = "user_id", type = IdType.AUTO)
@@ -73,5 +101,29 @@ public class User implements Serializable {
     @ApiModelProperty(value = "描述")
     private String description;
 
+    /**
+     * 部门名称
+     */
+    @TableField(exist = false)
+    private String deptName;
+
+    @TableField(exist = false)
+    private String createTimeFrom;
+
+    @TableField(exist = false)
+    private String createTimeTo;
+    /**
+     * 角色 ID
+     */
+    @NotBlank(message = "{required}")
+    @TableField(exist = false)
+    private String roleId;
+
+    @TableField(exist = false)
+    private String roleName;
+
+    public Long getId() {
+        return userId;
+    }
 
 }
