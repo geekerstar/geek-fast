@@ -1,9 +1,9 @@
 package com.geekerstar.system.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.geekerstar.system.entity.User;
 import com.geekerstar.system.mapper.UserMapper;
 import com.geekerstar.system.service.IUserService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**

@@ -18,30 +18,30 @@ import java.util.Map;
  */
 public class BaseController {
 
-    private Subject getSubject(){
+    private Subject getSubject() {
         return SecurityUtils.getSubject();
     }
 
-    protected Session getSession(){
+    protected Session getSession() {
         return getSubject().getSession();
     }
 
-    protected Session getSession(Boolean flag){
+    protected Session getSession(Boolean flag) {
         return getSubject().getSession(flag);
     }
 
-    protected void login(AuthenticationToken token){
+    protected void login(AuthenticationToken token) {
         getSubject().login(token);
     }
 
-    protected Map<String,Object> getDataTable(IPage<?> page){
+    protected Map<String, Object> getDataTable(IPage<?> page) {
         return getDataTable(page, GeekConstant.DATA_MAP_INITIAL_CAPACITY);
     }
 
-    protected Map<String,Object> getDataTable(IPage<?> page,int dataMapInitialCapacity){
-        Map<String,Object> data = Maps.newHashMapWithExpectedSize(dataMapInitialCapacity);
-        data.put("rows",page.getRecords());
-        data.put("total",page.getTotal());
+    protected Map<String, Object> getDataTable(IPage<?> page, int dataMapInitialCapacity) {
+        Map<String, Object> data = Maps.newHashMapWithExpectedSize(dataMapInitialCapacity);
+        data.put("rows", page.getRecords());
+        data.put("total", page.getTotal());
         return data;
     }
 }

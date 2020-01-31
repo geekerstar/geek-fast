@@ -1,12 +1,12 @@
 package com.geekerstar.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.geekerstar.common.entity.DeptTree;
 import com.geekerstar.common.util.TreeUtil;
 import com.geekerstar.system.entity.Dept;
 import com.geekerstar.system.mapper.DeptMapper;
 import com.geekerstar.system.service.IDeptService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
         return TreeUtil.buildDeptTree(treeList);
     }
 
-    private List<DeptTree<Dept>> convertDepts(List<Dept> depts){
+    private List<DeptTree<Dept>> convertDepts(List<Dept> depts) {
         List<DeptTree<Dept>> trees = new ArrayList<>();
         depts.forEach(dept -> {
             DeptTree<Dept> tree = new DeptTree<>();

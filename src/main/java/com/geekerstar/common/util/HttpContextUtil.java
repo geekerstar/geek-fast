@@ -16,7 +16,7 @@ public class HttpContextUtil {
     public HttpContextUtil() {
     }
 
-    public static HttpServletRequest getHttpServletRequest(){
+    public static HttpServletRequest getHttpServletRequest() {
         return ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
     }
 }

@@ -21,13 +21,14 @@ import java.lang.reflect.Method;
  */
 @Aspect
 @Component
-public class ControllerEndpointAspect extends AspectSupport{
+public class ControllerEndpointAspect extends AspectSupport {
 
     @Pointcut("@annotation(com.geekerstar.common.annotation.ControllerEndPoint)")
-    public void pointcut(){}
+    public void pointcut() {
+    }
 
     @Around("pointcut()")
-    public Object around(ProceedingJoinPoint point){
+    public Object around(ProceedingJoinPoint point) {
         Object result;
         Method targetMethod = resolveMethod(point);
         ControllerEndPoint annotation = targetMethod.getAnnotation(ControllerEndPoint.class);
@@ -35,7 +36,7 @@ public class ControllerEndpointAspect extends AspectSupport{
         long start = System.currentTimeMillis();
         try {
             result = point.proceed();
-            if (StringUtils.isNotBlank(operation)){
+            if (StringUtils.isNotBlank(operation)) {
                 HttpServletRequest request = HttpContextUtil.getHttpServletRequest();
                 // todo 记录日志
             }

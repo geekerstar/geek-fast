@@ -5,7 +5,7 @@ package com.geekerstar.common.entity;
  * date: 2019/12/15 20:02
  * description:
  */
-public enum  LimitType {
+public enum LimitType {
     /**
      * 传统类型
      */

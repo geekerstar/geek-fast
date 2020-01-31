@@ -6,10 +6,10 @@ import com.geekerstar.common.entity.DeptTree;
 import com.geekerstar.common.exception.GeekException;
 import com.geekerstar.system.entity.Dept;
 import com.geekerstar.system.service.IDeptService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;

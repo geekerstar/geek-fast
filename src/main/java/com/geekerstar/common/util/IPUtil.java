@@ -11,7 +11,7 @@ public class IPUtil {
 
     private static final String UNKNOWN = "unknown";
 
-    protected IPUtil(){
+    protected IPUtil() {
 
     }
 

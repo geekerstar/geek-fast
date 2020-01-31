@@ -1,8 +1,8 @@
 package com.geekerstar.system.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.geekerstar.common.entity.DeptTree;
 import com.geekerstar.system.entity.Dept;
-import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

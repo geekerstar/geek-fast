@@ -29,17 +29,17 @@ import java.lang.reflect.Method;
 @Slf4j
 @Aspect
 @Component
-public class LimitAspect extends AspectSupport{
+public class LimitAspect extends AspectSupport {
 
     private final RedisTemplate<String, Object> redisTemplate;
 
     @Autowired
-    public LimitAspect(RedisTemplate<String,Object> limitRedisTemplate){
+    public LimitAspect(RedisTemplate<String, Object> limitRedisTemplate) {
         this.redisTemplate = limitRedisTemplate;
     }
 
     @Pointcut("@annotation(com.geekerstar.common.annotation.Limit)")
-    public void pointcut(){
+    public void pointcut() {
 
     }
 
@@ -54,7 +54,7 @@ public class LimitAspect extends AspectSupport{
         String ip = IPUtil.getIpAddr(request);
         int limitPeriod = limitAnnotation.period();
         int limitCount = limitAnnotation.count();
-        switch (limitType){
+        switch (limitType) {
             case IP:
                 key = ip;
                 break;
@@ -80,6 +80,7 @@ public class LimitAspect extends AspectSupport{
     /**
      * 限流脚本
      * 调用的时候不超过阈值，则直接返回并执行计算器自加。
+     *
      * @return lua脚本
      */
     private String buildLuaScript() {

@@ -1,9 +1,9 @@
 package com.geekerstar.system.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.geekerstar.system.entity.Menu;
 import com.geekerstar.system.mapper.MenuMapper;
 import com.geekerstar.system.service.IMenuService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**

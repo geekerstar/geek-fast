@@ -9,7 +9,7 @@ public class GeekException extends RuntimeException {
 
     private static final long serialVersionUID = 1483552349749791672L;
 
-    public GeekException(String message){
+    public GeekException(String message) {
         super(message);
     }
 }

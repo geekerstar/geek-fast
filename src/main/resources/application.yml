@@ -60,7 +60,7 @@ spring:
           # 添加IP白名单
           #allow:
           # 添加IP黑名单，当白名单和黑名单重复时，黑名单优先级更高
-          #deny:
+        #deny:
 
 #########################################################################
 ####                     mybatis plus 配置                            ####
@@ -78,4 +78,4 @@ mybatis-plus:
 # Mybatis 输出sql日志
 logging:
   level:
-    com.hantu.mapper : debug
+    com.hantu.mapper: debug

@@ -1,7 +1,7 @@
 package com.geekerstar.system.service;
 
-import com.geekerstar.system.entity.Menu;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.geekerstar.system.entity.Menu;
 import org.springframework.stereotype.Service;
 
 /**
