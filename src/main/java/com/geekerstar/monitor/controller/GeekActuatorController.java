@@ -19,6 +19,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.geekerstar.monitor.endpoint.GeekHttpTraceEndpoint.GeekHttpTraceDescriptor;
+
 /**
  * @author geekerstar
  * @date 2020/2/1 11:51
@@ -35,7 +37,7 @@ public class GeekActuatorController {
     @RequiresPermissions("httptrace:view")
     @ControllerEndPoint(exceptionMessage = "请求追踪失败")
     public GeekResponse httpTraces(String method, String url) {
-        GeekHttpTraceEndpoint.GeekHttpTraceDescriptor traces = httpTraceEndpoint.traces();
+        GeekHttpTraceDescriptor traces = httpTraceEndpoint.traces();
         List<HttpTrace> httpTraceList = traces.getTraces();
         List<GeekHttpTrace> geekHttpTraces = Lists.newArrayList();
         httpTraceList.forEach(t -> {
