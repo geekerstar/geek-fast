@@ -28,4 +28,9 @@ public class GeekConstant {
      * getDataTable 中 HashMap 默认的初始化容量
      */
     public static final int DATA_MAP_INITIAL_CAPACITY = 4;
+
+    /**
+     * 异步线程池名称，保存操作日志
+     */
+    public static final String ASYNC_POOL = "geekAsyncThreadPool";
 }

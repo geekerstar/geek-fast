@@ -1,5 +1,7 @@
 package com.geekerstar.monitor.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -8,7 +10,6 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
@@ -26,6 +27,13 @@ public class Log implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 日志ID
+     */
+    @TableId(value = "id", type = IdType.AUTO)
+    @ApiModelProperty(value = "id")
+    private Long id;
+
     @ApiModelProperty(value = "操作用户")
     private String username;
 
@@ -33,7 +41,7 @@ public class Log implements Serializable {
     private String operation;
 
     @ApiModelProperty(value = "耗时")
-    private BigDecimal time;
+    private Long time;
 
     @ApiModelProperty(value = "操作方法")
     private String method;
@@ -49,6 +57,9 @@ public class Log implements Serializable {
 
     @ApiModelProperty(value = "操作地点")
     private String location;
+
+    private transient String createTimeFrom;
+    private transient String createTimeTo;
 
 
 }
