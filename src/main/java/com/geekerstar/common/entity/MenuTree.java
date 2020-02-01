@@ -16,7 +16,7 @@ import java.util.Map;
 @Data
 public class MenuTree<T> implements Serializable {
 
-    private static final long serialVersionUID = 7681873362531265829L;
+    private static final long serialVersionUID = 8258973982006499982L;
 
     private String id;
     private String icon;

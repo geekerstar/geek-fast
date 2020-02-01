@@ -16,7 +16,7 @@ import java.util.Map;
 @Data
 public class DeptTree<T> implements Serializable {
 
-    private static final long serialVersionUID = 7681873362531265829L;
+    private static final long serialVersionUID = -4061088146938175240L;
 
     private String id;
     private String icon;
