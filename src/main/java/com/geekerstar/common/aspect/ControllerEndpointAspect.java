@@ -3,7 +3,6 @@ package com.geekerstar.common.aspect;
 import com.geekerstar.common.annotation.ControllerEndPoint;
 import com.geekerstar.common.exception.GeekException;
 import com.geekerstar.common.util.GeekUtil;
-import com.geekerstar.common.util.HttpContextUtil;
 import com.geekerstar.monitor.service.ILogService;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -16,7 +15,6 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 
 /**

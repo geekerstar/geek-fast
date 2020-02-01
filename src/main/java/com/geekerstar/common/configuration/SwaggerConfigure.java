@@ -22,7 +22,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @EnableSwaggerBootstrapUi
 @Profile({"dev", "prod"})
-public class SwaggerConfig {
+public class SwaggerConfigure {
 
     @Bean
     public Docket allApi() {
