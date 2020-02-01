@@ -40,7 +40,7 @@ public class ValidateCodeService {
         setHeader(response, code.getType());
 
         Captcha captcha = createCaptcha(code);
-        redisService.set(GeekConstant.CODE_PREFIX  + key, StringUtils.lowerCase(captcha.text()), code.getTime());
+        redisService.set(GeekConstant.CODE_PREFIX + key, StringUtils.lowerCase(captcha.text()), code.getTime());
         captcha.out(response.getOutputStream());
     }
 

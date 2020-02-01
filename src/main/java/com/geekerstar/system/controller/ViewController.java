@@ -3,7 +3,6 @@ package com.geekerstar.system.controller;
 import com.geekerstar.common.authentication.ShiroHelper;
 import com.geekerstar.common.controller.BaseController;
 import com.geekerstar.common.entity.GeekConstant;
-import com.geekerstar.common.util.DateUtil;
 import com.geekerstar.common.util.GeekUtil;
 import com.geekerstar.system.entity.User;
 import com.geekerstar.system.service.IUserService;

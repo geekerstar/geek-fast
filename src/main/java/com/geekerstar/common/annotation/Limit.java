@@ -31,7 +31,7 @@ public @interface Limit {
     String key() default "";
 
     /**
-     * key prefix
+     * key 前缀
      *
      * @return
      */

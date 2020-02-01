@@ -50,12 +50,12 @@ public class MysqlGenerator {
         PackageConfig pc = new PackageConfig();
 //        pc.setModuleName(scanner("模块名"));
         pc.setParent("com.geekerstar");
-        pc.setController("system.controller");
-        pc.setService("system.service");
-        pc.setServiceImpl("system.service.impl");
-        pc.setEntity("system.entity");
-        pc.setMapper("system.mapper");
-        pc.setXml("");
+        pc.setController("monitor.controller");
+        pc.setService("monitor.service");
+        pc.setServiceImpl("monitor.service.impl");
+        pc.setEntity("monitor.entity");
+        pc.setMapper("monitor.mapper");
+//        pc.setXml("");
         mpg.setPackageInfo(pc);
 
         // 自定义配置
@@ -66,19 +66,30 @@ public class MysqlGenerator {
             }
         };
         List<FileOutConfig> focList = new ArrayList<>();
-        focList.add(new FileOutConfig("/templates/mapper.xml.ftl") {
+        focList.add(new FileOutConfig("generator/templates/mapper.xml.ftl") {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输入文件名称
 //                return projectPath + "/src/main/resources/mapper/" + pc.getModuleName()
 //                        + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
-                return projectPath + "/src/main/resources/mapper/system/"
+                return projectPath + "/src/main/resources/mapper/monitor/"
                         + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
             }
         });
+        // 自定义模板路径
+        TemplateConfig templateConfig = new TemplateConfig()
+                .setEntity("generator/templates/entity.java")
+//                .setXml("generator/templates/mapper.xml")
+                .setController("generator/templates/controller.java")
+                .setMapper("generator/templates/mapper.java")
+                .setService("generator/templates/service.java")
+                .setServiceImpl("generator/templates/serviceImpl.java");
+        mpg.setTemplate(templateConfig);
+
         cfg.setFileOutConfigList(focList);
         mpg.setCfg(cfg);
         mpg.setTemplate(new TemplateConfig().setXml(null));
+
 
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();

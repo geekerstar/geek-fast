@@ -26,8 +26,6 @@ import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Map;
 
-import static com.geekerstar.common.util.GeekUtil.getCurrentUser;
-
 /**
  * 用户表 UserController 前端控制器
  *

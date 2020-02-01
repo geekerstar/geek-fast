@@ -21,8 +21,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
-import static com.geekerstar.common.util.GeekUtil.getCurrentUser;
-
 /**
  * 菜单表 MenuController 前端控制器
  *
