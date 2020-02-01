@@ -12,6 +12,7 @@ import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.support.DefaultSubjectContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,6 +23,7 @@ import java.util.List;
  * @date 2020/2/1 12:24
  * @description
  */
+@Service
 public class SessionServiceImpl implements ISessionService {
     @Autowired
     private SessionDAO sessionDAO;

@@ -82,7 +82,7 @@ public class LoginController extends BaseController {
 
 
     @GetMapping("images/captcha")
-    @Weblog(description = "获取验证码")
+//    @Weblog(description = "获取验证码")
     @ApiOperation(value = "获取验证码", notes = "获取验证码")
     public void captcha(HttpServletRequest request, HttpServletResponse response) throws IOException, GeekException {
         validateCodeService.create(request, response);

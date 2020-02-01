@@ -23,7 +23,7 @@ import java.lang.reflect.Method;
  */
 @Aspect
 @Component
-@Profile({"dev"})
+@Profile({"prod"})
 public class WebLogAspect {
     private final static Logger logger = LoggerFactory.getLogger(WebLogAspect.class);
     /**
