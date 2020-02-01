@@ -11,6 +11,7 @@ import com.geekerstar.common.exception.GeekException;
 import com.geekerstar.system.entity.Dept;
 import com.geekerstar.system.service.IDeptService;
 import com.wuwenze.poi.ExcelKit;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -30,6 +31,7 @@ import java.util.List;
  * @author Geekerstar
  * @since 2020-01-31
  */
+@Api("部门管理")
 @Slf4j
 @RestController
 @RequestMapping("dept")
@@ -39,7 +41,7 @@ public class DeptController {
     private IDeptService deptService;
 
     @GetMapping("select/tree")
-    @Weblog(description = "获取部门树信息")
+    @Weblog(description = "获取部门树信息(下拉列表)")
     @ControllerEndPoint(exceptionMessage = "获取部门树失败")
     @ApiOperation(value = "获取部门树信息(下拉列表）", notes = "获取部门树信息(下拉列表)")
     public List<DeptTree<Dept>> getDeptTree() throws GeekException {
@@ -47,6 +49,7 @@ public class DeptController {
     }
 
     @GetMapping("tree")
+    @Weblog(description = "获取部门树信息")
     @ControllerEndPoint(exceptionMessage = "获取部门树失败")
     @ApiOperation(value = "获取部门树信息", notes = "获取部门树信息")
     @ApiImplicitParams({
@@ -58,6 +61,7 @@ public class DeptController {
     }
 
     @PostMapping
+    @Weblog(description = "新增部门")
     @RequiresPermissions("dept:add")
     @ApiOperation(value = "新增部门", notes = "新增部门")
     @ControllerEndPoint(operation = "新增部门", exceptionMessage = "新增部门失败")
@@ -70,6 +74,7 @@ public class DeptController {
     }
 
     @GetMapping("delete/{deptIds}")
+    @Weblog(description = "删除部门")
     @RequiresPermissions("dept:delete")
     @ApiOperation(value = "删除部门", notes = "删除部门")
     @ControllerEndPoint(operation = "删除部门", exceptionMessage = "删除部门失败")
@@ -83,6 +88,7 @@ public class DeptController {
     }
 
     @PostMapping("update")
+    @Weblog(description = "修改部门")
     @RequiresPermissions("dept:update")
     @ApiOperation(value = "修改部门", notes = "修改部门")
     @ControllerEndPoint(operation = "修改部门", exceptionMessage = "修改部门失败")
@@ -95,6 +101,7 @@ public class DeptController {
     }
 
     @GetMapping("excel")
+    @Weblog(description = "导出Excel")
     @RequiresPermissions("dept:export")
     @ApiOperation(value = "导出Excel", notes = "导出Excel")
     @ControllerEndPoint(operation = "导出Excel", exceptionMessage = "导出Excel失败")

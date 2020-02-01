@@ -6,6 +6,7 @@ import com.geekerstar.common.entity.GeekConstant;
 import com.geekerstar.common.util.GeekUtil;
 import com.geekerstar.system.entity.User;
 import com.geekerstar.system.service.IUserService;
+import io.swagger.annotations.Api;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.session.ExpiredSessionException;
@@ -25,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
  * @date 2020/1/31 20:24
  * @description
  */
+@Api("系统管理视图")
 @Controller("systemView")
 public class ViewController extends BaseController {
     @Autowired

@@ -3,6 +3,7 @@ package com.geekerstar.system.controller;
 
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.geekerstar.common.annotation.ControllerEndPoint;
+import com.geekerstar.common.annotation.Weblog;
 import com.geekerstar.common.controller.BaseController;
 import com.geekerstar.common.entity.GeekResponse;
 import com.geekerstar.common.entity.QueryRequest;
@@ -11,6 +12,7 @@ import com.geekerstar.common.util.MD5Util;
 import com.geekerstar.system.entity.User;
 import com.geekerstar.system.service.IUserService;
 import com.wuwenze.poi.ExcelKit;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -32,6 +34,7 @@ import java.util.Map;
  * @author Geekerstar
  * @since 2020-01-31
  */
+@Api("用户管理")
 @Slf4j
 @RestController
 @RequestMapping("/user")
@@ -41,6 +44,7 @@ public class UserController extends BaseController {
     private IUserService userService;
 
     @GetMapping("{usernmae}")
+    @Weblog(description = "获取用户信息")
     @ControllerEndPoint(exceptionMessage = "获取用户信息失败")
     @ApiOperation(value = "获取用户信息", notes = "获取用户信息")
     @ApiImplicitParams({
@@ -51,28 +55,50 @@ public class UserController extends BaseController {
     }
 
     @GetMapping("check/{username}")
+    @Weblog(description = "检查用户名")
+    @ApiOperation(value = "检查用户名", notes = "检查用户名")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "username", value = "用户名", paramType = "query", required = true, defaultValue = ""),
+            @ApiImplicitParam(name = "userId", value = "用户id", paramType = "query", required = true, defaultValue = "")
+    })
     public Boolean checkUserName(@NotBlank(message = "{required}") @PathVariable String username, String userId) {
         return this.userService.findByName(username) == null || StringUtils.isNotBlank(userId);
     }
 
     @GetMapping("list")
+    @Weblog(description = "用户列表")
     @RequiresPermissions("user:view")
+    @ApiOperation(value = "用户列表", notes = "用户列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "user", value = "用户", paramType = "body", required = true, defaultValue = ""),
+            @ApiImplicitParam(name = "request", value = "查询请求", paramType = "body", required = true, defaultValue = "")
+    })
     public GeekResponse userList(User user, QueryRequest request) {
         Map<String, Object> dataTable = getDataTable(this.userService.findUserDetailList(user, request));
         return new GeekResponse().success().data(dataTable);
     }
 
     @PostMapping
+    @Weblog(description = "新增用户")
     @RequiresPermissions("user:add")
     @ControllerEndPoint(operation = "新增用户", exceptionMessage = "新增用户失败")
+    @ApiOperation(value = "新增用户", notes = "新增用户")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "user", value = "用户", paramType = "body", required = true, defaultValue = "")
+    })
     public GeekResponse addUser(@Valid User user) {
         this.userService.createUser(user);
         return new GeekResponse().success();
     }
 
     @GetMapping("delete/{userIds}")
+    @Weblog(description = "删除用户")
     @RequiresPermissions("user:delete")
     @ControllerEndPoint(operation = "删除用户", exceptionMessage = "删除用户失败")
+    @ApiOperation(value = "删除用户", notes = "删除用户")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userIds", value = "用户id", paramType = "query", required = true, defaultValue = "")
+    })
     public GeekResponse deleteUsers(@NotBlank(message = "{required}") @PathVariable String userIds) {
         String[] ids = userIds.split(StringPool.COMMA);
         this.userService.deleteUsers(ids);
@@ -80,8 +106,13 @@ public class UserController extends BaseController {
     }
 
     @PostMapping("update")
+    @Weblog(description = "修改用户")
     @RequiresPermissions("user:update")
     @ControllerEndPoint(operation = "修改用户", exceptionMessage = "修改用户失败")
+    @ApiOperation(value = "修改用户", notes = "修改用户")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "user", value = "用户", paramType = "body", required = true, defaultValue = "")
+    })
     public GeekResponse updateUser(@Valid User user) {
         if (user.getUserId() == null) {
             throw new GeekException("用户ID为空");
@@ -91,8 +122,13 @@ public class UserController extends BaseController {
     }
 
     @PostMapping("password/reset/{usernames}")
+    @Weblog(description = "重置密码")
     @RequiresPermissions("user:password:reset")
     @ControllerEndPoint(exceptionMessage = "重置用户密码失败")
+    @ApiOperation(value = "重置密码", notes = "重置密码")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "usernames", value = "用户名", paramType = "query", required = true, defaultValue = "")
+    })
     public GeekResponse resetPassword(@NotBlank(message = "{required}") @PathVariable String usernames) {
         String[] usernameArr = usernames.split(StringPool.COMMA);
         this.userService.resetPassword(usernameArr);
@@ -100,7 +136,13 @@ public class UserController extends BaseController {
     }
 
     @PostMapping("password/update")
+    @Weblog(description = "修改密码")
     @ControllerEndPoint(exceptionMessage = "修改密码失败")
+    @ApiOperation(value = "修改密码", notes = "修改密码")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "oldPassword", value = "旧密码", paramType = "query", required = true, defaultValue = ""),
+            @ApiImplicitParam(name = "newPassword", value = "新密码", paramType = "query", required = true, defaultValue = "")
+    })
     public GeekResponse updatePassword(
             @NotBlank(message = "{required}") String oldPassword,
             @NotBlank(message = "{required}") String newPassword) {
@@ -113,7 +155,12 @@ public class UserController extends BaseController {
     }
 
     @GetMapping("avatar/{image}")
+    @Weblog(description = "修改头像")
     @ControllerEndPoint(exceptionMessage = "修改头像失败")
+    @ApiOperation(value = "修改头像", notes = "修改头像")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "image", value = "头像", paramType = "query", required = true, defaultValue = "")
+    })
     public GeekResponse updateAvatar(@NotBlank(message = "{required}") @PathVariable String image) {
         User user = getCurrentUser();
         this.userService.updateAvatar(user.getUsername(), image);
@@ -121,7 +168,13 @@ public class UserController extends BaseController {
     }
 
     @PostMapping("theme/update")
+    @Weblog(description = "修改系统配置")
     @ControllerEndPoint(exceptionMessage = "修改系统配置失败")
+    @ApiOperation(value = "修改系统配置", notes = "修改系统配置")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "theme", value = "主题", paramType = "query", required = true, defaultValue = ""),
+            @ApiImplicitParam(name = "isTab", value = "是否Tab", paramType = "query", required = true, defaultValue = "")
+    })
     public GeekResponse updateTheme(String theme, String isTab) {
         User user = getCurrentUser();
         this.userService.updateTheme(user.getUsername(), theme, isTab);
@@ -129,7 +182,12 @@ public class UserController extends BaseController {
     }
 
     @PostMapping("profile/update")
+    @Weblog(description = "修改个人信息")
     @ControllerEndPoint(exceptionMessage = "修改个人信息失败")
+    @ApiOperation(value = "修改个人信息", notes = "修改个人信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "user", value = "用户", paramType = "body", required = true, defaultValue = "")
+    })
     public GeekResponse updateProfile(User user) throws GeekException {
         User currentUser = getCurrentUser();
         user.setUserId(currentUser.getUserId());
@@ -138,8 +196,10 @@ public class UserController extends BaseController {
     }
 
     @GetMapping("excel")
+    @Weblog(description = "导出Excel")
     @RequiresPermissions("user:export")
     @ControllerEndPoint(exceptionMessage = "导出Excel失败")
+    @ApiOperation(value = "导出Excel", notes = "导出Excel")
     public void export(QueryRequest queryRequest, User user, HttpServletResponse response) {
         List<User> users = this.userService.findUserDetailList(user, queryRequest).getRecords();
         ExcelKit.$Export(User.class, response).downXlsx(users, false);
