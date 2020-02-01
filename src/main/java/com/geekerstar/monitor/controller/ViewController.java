@@ -6,6 +6,7 @@ import com.geekerstar.monitor.entity.JvmInfo;
 import com.geekerstar.monitor.entity.ServerInfo;
 import com.geekerstar.monitor.entity.TomcatInfo;
 import com.geekerstar.monitor.helper.GeekActuatorHelper;
+import io.swagger.annotations.Api;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ import static com.geekerstar.monitor.endpoint.GeekMetricsEndpoint.GeekMetricResp
  * @date 2020/2/1 12:28
  * @description
  */
+@Api("监控视图")
 @Controller("monitorView")
 @RequestMapping(GeekConstant.VIEW_PREFIX + "monitor")
 public class ViewController {

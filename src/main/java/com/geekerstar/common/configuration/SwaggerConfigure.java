@@ -25,10 +25,17 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfigure {
 
     @Bean
-    public Docket allApi() {
-        return new Docket(DocumentationType.SWAGGER_2).groupName("1000.所有接口").select()
+    public Docket systemApi() {
+        return new Docket(DocumentationType.SWAGGER_2).groupName("1000.系统管理").select()
                 .apis(RequestHandlerSelectors.basePackage("com.geekerstar.system.controller")).paths(PathSelectors.any()).build()
-                .apiInfo(common("所有接口"));
+                .apiInfo(common("系统管理"));
+    }
+
+    @Bean
+    public Docket monitorApi() {
+        return new Docket(DocumentationType.SWAGGER_2).groupName("1001.监控模块").select()
+                .apis(RequestHandlerSelectors.basePackage("com.geekerstar.monitor.controller")).paths(PathSelectors.any()).build()
+                .apiInfo(common("监控模块"));
     }
 
 
