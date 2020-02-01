@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.geekerstar.common.authentication.ShiroRealm;
 import com.geekerstar.common.entity.MenuTree;
 import com.geekerstar.common.util.TreeUtil;
 import com.geekerstar.system.entity.Menu;
@@ -35,6 +36,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 
     @Autowired
     private IRoleMenuService roleMenuService;
+
+    @Autowired
+    private ShiroRealm shiroRealm;
 
     @Override
     public List<Menu> findUserPermissions(String username) {
@@ -87,6 +91,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
         this.setMenu(menu);
         this.baseMapper.updateById(menu);
 
+        shiroRealm.clearCache();
     }
 
     @Override
@@ -94,6 +99,8 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     public void deleteMeuns(String menuIds) {
         String[] menuIdsArray = menuIds.split(StringPool.COMMA);
         this.delete(Arrays.asList(menuIdsArray));
+
+        shiroRealm.clearCache();
     }
 
     private List<MenuTree<Menu>> convertMenus(List<Menu> menus) {

@@ -6,6 +6,7 @@ import com.geekerstar.system.entity.UserRole;
 import com.geekerstar.system.mapper.UserRoleMapper;
 import com.geekerstar.system.service.IUserRoleService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
  * @since 2020-01-31
  */
 @Service
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class UserRoleServiceImpl extends ServiceImpl<UserRoleMapper, UserRole> implements IUserRoleService {
 
     @Override

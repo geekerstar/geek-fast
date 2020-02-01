@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.geekerstar.common.authentication.ShiroRealm;
 import com.geekerstar.common.entity.GeekConstant;
 import com.geekerstar.common.entity.QueryRequest;
 import com.geekerstar.common.exception.GeekException;
@@ -20,6 +21,7 @@ import com.geekerstar.system.service.IUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
@@ -34,10 +36,14 @@ import java.util.List;
  * @since 2020-01-31
  */
 @Service
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
     @Autowired
     private IUserRoleService userRoleService;
+
+    @Autowired
+    private ShiroRealm shiroRealm;
 
     @Override
     public User findUserDetailList(String username) {
@@ -100,7 +106,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
         User currentUser = GeekUtil.getCurrentUser();
         if (StringUtils.equalsIgnoreCase(currentUser.getUsername(), username)) {
-//            shiroRealm.clearCache();
+            shiroRealm.clearCache();
         }
     }
 

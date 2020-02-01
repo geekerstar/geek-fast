@@ -14,6 +14,7 @@ import com.geekerstar.system.mapper.DeptMapper;
 import com.geekerstar.system.service.IDeptService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
@@ -28,6 +29,7 @@ import java.util.List;
  * @since 2020-01-31
  */
 @Service
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
 public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements IDeptService {
 
     @Override
@@ -63,7 +65,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional()
     public void createDept(Dept dept) {
         Long parentId = dept.getParentId();
         if (parentId == null) {
@@ -74,13 +76,13 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional()
     public void removeDepts(String[] ids) {
         this.delete(Arrays.asList(ids));
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional()
     public void updateDept(Dept dept) {
         dept.setModifyTime(LocalDateTime.now());
         this.baseMapper.updateById(dept);
