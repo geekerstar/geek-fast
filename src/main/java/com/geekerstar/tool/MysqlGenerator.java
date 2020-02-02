@@ -50,11 +50,11 @@ public class MysqlGenerator {
         PackageConfig pc = new PackageConfig();
 //        pc.setModuleName(scanner("模块名"));
         pc.setParent("com.geekerstar");
-        pc.setController("generator.controller");
-        pc.setService("generator.service");
-        pc.setServiceImpl("generator.service.impl");
-        pc.setEntity("generator.entity");
-        pc.setMapper("generator.mapper");
+        pc.setController("other.controller");
+        pc.setService("other.service");
+        pc.setServiceImpl("other.service.impl");
+        pc.setEntity("other.entity");
+        pc.setMapper("other.mapper");
 //        pc.setXml("");
         mpg.setPackageInfo(pc);
 

@@ -6,6 +6,7 @@ import com.geekerstar.common.entity.GeekResponse;
 import com.geekerstar.common.exception.GeekException;
 import com.geekerstar.common.service.ValidateCodeService;
 import com.geekerstar.common.util.MD5Util;
+import com.geekerstar.monitor.service.ILoginLogService;
 import com.geekerstar.system.entity.User;
 import com.geekerstar.system.service.IUserService;
 import io.swagger.annotations.Api;
@@ -16,6 +17,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,6 +26,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotBlank;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author geekerstar
@@ -37,8 +42,12 @@ public class LoginController extends BaseController {
 
     @Autowired
     private IUserService userService;
+
     @Autowired
     private ValidateCodeService validateCodeService;
+
+    @Autowired
+    private ILoginLogService loginLogService;
 
     @PostMapping("login")
     @Weblog(description = "登录")
@@ -78,6 +87,28 @@ public class LoginController extends BaseController {
         }
         this.userService.regist(username, password);
         return new GeekResponse().success();
+    }
+
+    @GetMapping("index/{username}")
+    public GeekResponse index(@NotBlank(message = "{required}") @PathVariable String username) {
+        // 更新登录时间
+        this.userService.updateLoginTime(username);
+        Map<String, Object> data = new HashMap<>();
+        // 获取系统访问记录
+        Long totalVisitCount = this.loginLogService.findTotalVisitCount();
+        data.put("totalVisitCount", totalVisitCount);
+        Long todayVisitCount = this.loginLogService.findTodayVisitCount();
+        data.put("todayVisitCount", todayVisitCount);
+        Long todayIp = this.loginLogService.findTodayIp();
+        data.put("todayIp", todayIp);
+        // 获取近期系统访问记录
+        List<Map<String, Object>> lastSevenVisitCount = this.loginLogService.findLastSevenDaysVisitCount(null);
+        data.put("lastSevenVisitCount", lastSevenVisitCount);
+        User param = new User();
+        param.setUsername(username);
+        List<Map<String, Object>> lastSevenUserVisitCount = this.loginLogService.findLastSevenDaysVisitCount(param);
+        data.put("lastSevenUserVisitCount", lastSevenUserVisitCount);
+        return new GeekResponse().success().data(data);
     }
 
 
