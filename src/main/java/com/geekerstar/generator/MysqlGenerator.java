@@ -50,11 +50,11 @@ public class MysqlGenerator {
         PackageConfig pc = new PackageConfig();
 //        pc.setModuleName(scanner("模块名"));
         pc.setParent("com.geekerstar");
-        pc.setController("monitor.controller");
-        pc.setService("monitor.service");
-        pc.setServiceImpl("monitor.service.impl");
-        pc.setEntity("monitor.entity");
-        pc.setMapper("monitor.mapper");
+        pc.setController("job.controller");
+        pc.setService("job.service");
+        pc.setServiceImpl("job.service.impl");
+        pc.setEntity("job.entity");
+        pc.setMapper("job.mapper");
 //        pc.setXml("");
         mpg.setPackageInfo(pc);
 
@@ -72,7 +72,7 @@ public class MysqlGenerator {
                 // 自定义输入文件名称
 //                return projectPath + "/src/main/resources/mapper/" + pc.getModuleName()
 //                        + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
-                return projectPath + "/src/main/resources/mapper/monitor/"
+                return projectPath + "/src/main/resources/mapper/job/"
                         + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
             }
         });
