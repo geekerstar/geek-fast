@@ -1,4 +1,4 @@
-package com.geekerstar.generator;
+package com.geekerstar.tool;
 
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
@@ -50,11 +50,11 @@ public class MysqlGenerator {
         PackageConfig pc = new PackageConfig();
 //        pc.setModuleName(scanner("模块名"));
         pc.setParent("com.geekerstar");
-        pc.setController("job.controller");
-        pc.setService("job.service");
-        pc.setServiceImpl("job.service.impl");
-        pc.setEntity("job.entity");
-        pc.setMapper("job.mapper");
+        pc.setController("generator.controller");
+        pc.setService("generator.service");
+        pc.setServiceImpl("generator.service.impl");
+        pc.setEntity("generator.entity");
+        pc.setMapper("generator.mapper");
 //        pc.setXml("");
         mpg.setPackageInfo(pc);
 
@@ -66,24 +66,24 @@ public class MysqlGenerator {
             }
         };
         List<FileOutConfig> focList = new ArrayList<>();
-        focList.add(new FileOutConfig("generator/templates/mapper.xml.ftl") {
+        focList.add(new FileOutConfig("generator/simple/mapper.xml.ftl") {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输入文件名称
 //                return projectPath + "/src/main/resources/mapper/" + pc.getModuleName()
 //                        + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
-                return projectPath + "/src/main/resources/mapper/job/"
+                return projectPath + "/src/main/resources/mapper/generator/"
                         + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
             }
         });
         // 自定义模板路径
         TemplateConfig templateConfig = new TemplateConfig()
-                .setEntity("generator/templates/entity.java")
-//                .setXml("generator/templates/mapper.xml")
-                .setController("generator/templates/controller.java")
-                .setMapper("generator/templates/mapper.java")
-                .setService("generator/templates/service.java")
-                .setServiceImpl("generator/templates/serviceImpl.java");
+                .setEntity("generator/simple/entity.java")
+//                .setXml("generator/simple/mapper.xml")
+                .setController("generator/simple/controller.java")
+                .setMapper("generator/simple/mapper.java")
+                .setService("generator/simple/service.java")
+                .setServiceImpl("generator/simple/serviceImpl.java");
         mpg.setTemplate(templateConfig);
 
         cfg.setFileOutConfigList(focList);
