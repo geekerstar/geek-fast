@@ -1,15 +1,16 @@
 package com.geekerstar.job.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -23,10 +24,36 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("sys_job")
-@ApiModel(value="Job对象", description="定时任务表")
+@ApiModel(value = "Job对象", description = "定时任务表")
 public class Job implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
+    /**
+     * 任务调度参数 key
+     */
+    public static final String JOB_PARAM_KEY = "JOB_PARAM_KEY";
+
+    public enum ScheduleStatus {
+        /**
+         * 正常
+         */
+        NORMAL("0"),
+        /**
+         * 暂停
+         */
+        PAUSE("1");
+
+        private String value;
+
+        ScheduleStatus(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
 
     @ApiModelProperty(value = "任务id")
     @TableId(value = "job_id", type = IdType.AUTO)
@@ -53,5 +80,7 @@ public class Job implements Serializable {
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
 
+    private transient String createTimeFrom;
+    private transient String createTimeTo;
 
 }

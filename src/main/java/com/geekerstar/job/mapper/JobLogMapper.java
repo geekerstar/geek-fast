@@ -1,7 +1,7 @@
 package com.geekerstar.job.mapper;
 
-import com.geekerstar.job.entity.JobLog;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.geekerstar.job.entity.JobLog;
 
 /**
  * <p>

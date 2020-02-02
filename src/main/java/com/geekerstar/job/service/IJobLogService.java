@@ -1,7 +1,9 @@
 package com.geekerstar.job.service;
 
-import com.geekerstar.job.entity.JobLog;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.geekerstar.common.entity.QueryRequest;
+import com.geekerstar.job.entity.JobLog;
 
 /**
  * <p>
@@ -12,5 +14,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2020-02-02
  */
 public interface IJobLogService extends IService<JobLog> {
+
+    IPage<JobLog> findJobLogs(QueryRequest request, JobLog jobLog);
+
+    void saveJobLog(JobLog log);
+
+    void deleteJobLogs(String[] jobLogIds);
 
 }

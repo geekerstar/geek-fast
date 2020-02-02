@@ -1,7 +1,9 @@
 package com.geekerstar.job.mapper;
 
-import com.geekerstar.job.entity.Job;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.geekerstar.job.entity.Job;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface JobMapper extends BaseMapper<Job> {
 
+    List<Job> queryList();
 }
