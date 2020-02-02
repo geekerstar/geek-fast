@@ -45,7 +45,7 @@ public class ScheduleConfigure {
         prop.put("org.quartz.jobStore.tablePrefix", "QRTZ_");
         factory.setQuartzProperties(prop);
 
-        factory.setSchedulerName("FEBS_Scheduler");
+        factory.setSchedulerName("Geek_Scheduler");
         // 延时启动
         factory.setStartupDelay(1);
         factory.setApplicationContextSchedulerContextKey("applicationContextKey");
