@@ -15,34 +15,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller("othersView")
 @RequestMapping(GeekConstant.VIEW_PREFIX + "others")
 public class ViewController {
-    @GetMapping("febs/form")
-    @RequiresPermissions("febs:form:view")
-    public String febsForm() {
-        return GeekUtil.view("others/febs/form");
+    @GetMapping("geek/form")
+    @RequiresPermissions("geek:form:view")
+    public String geekForm() {
+        return GeekUtil.view("others/geek/form");
     }
 
-    @GetMapping("febs/form/group")
-    @RequiresPermissions("febs:formgroup:view")
-    public String febsFormGroup() {
-        return GeekUtil.view("others/febs/formGroup");
+    @GetMapping("geek/form/group")
+    @RequiresPermissions("geek:formgroup:view")
+    public String geekFormGroup() {
+        return GeekUtil.view("others/geek/formGroup");
     }
 
-    @GetMapping("febs/tools")
-    @RequiresPermissions("febs:tools:view")
-    public String febsTools() {
-        return GeekUtil.view("others/febs/tools");
+    @GetMapping("geek/tools")
+    @RequiresPermissions("geek:tools:view")
+    public String geekTools() {
+        return GeekUtil.view("others/geek/tools");
     }
 
-    @GetMapping("febs/icon")
-    @RequiresPermissions("febs:icons:view")
-    public String febsIcon() {
-        return GeekUtil.view("others/febs/icon");
+    @GetMapping("geek/icon")
+    @RequiresPermissions("geek:icons:view")
+    public String geekIcon() {
+        return GeekUtil.view("others/geek/icon");
     }
 
-    @GetMapping("febs/others")
-    @RequiresPermissions("others:febs:others")
-    public String febsOthers() {
-        return GeekUtil.view("others/febs/others");
+    @GetMapping("geek/others")
+    @RequiresPermissions("others:geek:others")
+    public String geekOthers() {
+        return GeekUtil.view("others/geek/others");
     }
 
     @GetMapping("apex/line")

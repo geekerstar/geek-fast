@@ -25,7 +25,7 @@ public class GeekStartedUpRunner implements ApplicationRunner {
     @Autowired
     private ConfigurableApplicationContext context;
     @Autowired
-    private GeekProperties febsProperties;
+    private GeekProperties geekProperties;
     @Autowired
     private RedisService redisService;
 
@@ -53,7 +53,7 @@ public class GeekStartedUpRunner implements ApplicationRunner {
         if (context.isActive()) {
             InetAddress address = InetAddress.getLocalHost();
             String url = String.format("http://%s:%s", address.getHostAddress(), port);
-            String loginUrl = febsProperties.getShiro().getLoginUrl();
+            String loginUrl = geekProperties.getShiro().getLoginUrl();
 //            if (StringUtils.isNotBlank(contextPath))
 //                url += contextPath;
             if (StringUtils.isNotBlank(loginUrl))
@@ -64,7 +64,7 @@ public class GeekStartedUpRunner implements ApplicationRunner {
             log.info("                                                      ");
             log.info("Geek-Fast 启动完毕，地址：{}", url);
 
-            boolean auto = febsProperties.isAutoOpenBrowser();
+            boolean auto = geekProperties.isAutoOpenBrowser();
             if (auto && StringUtils.equalsIgnoreCase(active, "dev")) {
                 String os = System.getProperty("os.name");
                 // 默认为 windows时才自动打开页面
