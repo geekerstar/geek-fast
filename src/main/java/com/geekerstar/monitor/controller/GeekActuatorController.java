@@ -34,7 +34,7 @@ import static com.geekerstar.monitor.endpoint.GeekHttpTraceEndpoint.GeekHttpTrac
 @Api("actuator监控")
 @Slf4j
 @RestController
-@RequestMapping("febs/actuator")
+@RequestMapping("geek/actuator")
 public class GeekActuatorController {
     @Autowired
     private GeekHttpTraceEndpoint httpTraceEndpoint;
