@@ -13,6 +13,10 @@ import com.geekerstar.generator.entity.GeneratorConstant;
 import com.geekerstar.generator.helper.GeneratorHelper;
 import com.geekerstar.generator.service.IGeneratorConfigService;
 import com.geekerstar.generator.service.IGeneratorService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RegExUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -32,6 +36,7 @@ import java.util.Map;
  * @date 2020/2/2 13:02
  * @description
  */
+@Api(tags = "代码生成器")
 @Slf4j
 @RestController
 @RequestMapping("generator")
@@ -47,6 +52,11 @@ public class GeneratorController extends BaseController {
 
     @GetMapping("tables/info")
     @RequiresPermissions("generator:view")
+    @ApiOperation(value = "获取表信息", notes = "获取表信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "tableName", value = "表名", paramType = "query", required = true, defaultValue = ""),
+            @ApiImplicitParam(name = "request", value = "查询请求", paramType = "body", required = true, defaultValue = "")
+    })
     public GeekResponse tablesInfo(String tableName, QueryRequest request) {
         Map<String, Object> dataTable = getDataTable(generatorService.getTables(tableName, request, GeneratorConstant.DATABASE_TYPE, GeneratorConstant.DATABASE_NAME));
         return new GeekResponse().success().data(dataTable);
@@ -55,6 +65,7 @@ public class GeneratorController extends BaseController {
     @GetMapping
     @RequiresPermissions("generator:generate")
     @ControllerEndPoint(exceptionMessage = "代码生成失败")
+    @ApiOperation(value = "生成代码", notes = "生成代码")
     public void generate(@NotBlank(message = "{required}") String name, String remark, HttpServletResponse response) throws Exception {
         GeneratorConfig generatorConfig = generatorConfigService.findGeneratorConfig();
         if (generatorConfig == null) {

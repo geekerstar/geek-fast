@@ -1,4 +1,4 @@
-package com.geekerstar.common.configuration;
+package com.geekerstar.common.configure;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;

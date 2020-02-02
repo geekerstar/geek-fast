@@ -34,7 +34,7 @@ import java.util.Map;
  * @author Geekerstar
  * @since 2020-02-01
  */
-@Api("登录日志监控")
+@Api(tags = "登录日志监控")
 @RestController
 @RequestMapping("/loginLog")
 public class LoginLogController extends BaseController {

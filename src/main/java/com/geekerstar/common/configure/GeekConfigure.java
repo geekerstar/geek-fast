@@ -1,4 +1,4 @@
-package com.geekerstar.common.configuration;
+package com.geekerstar.common.configure;
 
 import com.geekerstar.common.entity.GeekConstant;
 import com.geekerstar.common.xss.XssFilter;

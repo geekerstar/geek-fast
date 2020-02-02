@@ -34,7 +34,7 @@ import java.util.Map;
  * @author Geekerstar
  * @since 2020-01-31
  */
-@Api("用户管理")
+@Api(tags = "用户管理")
 @Slf4j
 @RestController
 @RequestMapping("/user")

@@ -33,7 +33,7 @@ import java.util.Map;
  * @author Geekerstar
  * @since 2020-02-01
  */
-@Api("日志监控")
+@Api(tags = "日志监控")
 @Slf4j
 @RestController
 @RequestMapping("/log")

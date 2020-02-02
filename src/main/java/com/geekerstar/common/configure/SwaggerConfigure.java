@@ -1,4 +1,4 @@
-package com.geekerstar.common.configuration;
+package com.geekerstar.common.configure;
 
 import com.github.xiaoymin.knife4j.spring.annotations.EnableSwaggerBootstrapUi;
 import org.springframework.context.annotation.Bean;
@@ -33,9 +33,30 @@ public class SwaggerConfigure {
 
     @Bean
     public Docket monitorApi() {
-        return new Docket(DocumentationType.SWAGGER_2).groupName("1001.监控模块").select()
+        return new Docket(DocumentationType.SWAGGER_2).groupName("1001.系统监控").select()
                 .apis(RequestHandlerSelectors.basePackage("com.geekerstar.monitor.controller")).paths(PathSelectors.any()).build()
-                .apiInfo(common("监控模块"));
+                .apiInfo(common("系统监控"));
+    }
+
+    @Bean
+    public Docket jobApi() {
+        return new Docket(DocumentationType.SWAGGER_2).groupName("1002.任务调度").select()
+                .apis(RequestHandlerSelectors.basePackage("com.geekerstar.job.controller")).paths(PathSelectors.any()).build()
+                .apiInfo(common("任务调度"));
+    }
+
+    @Bean
+    public Docket generatorApi() {
+        return new Docket(DocumentationType.SWAGGER_2).groupName("1003.代码生成").select()
+                .apis(RequestHandlerSelectors.basePackage("com.geekerstar.generator.controller")).paths(PathSelectors.any()).build()
+                .apiInfo(common("代码生成"));
+    }
+
+    @Bean
+    public Docket otherApi() {
+        return new Docket(DocumentationType.SWAGGER_2).groupName("1004.其他模块").select()
+                .apis(RequestHandlerSelectors.basePackage("com.geekerstar.other.controller")).paths(PathSelectors.any()).build()
+                .apiInfo(common("其他模块"));
     }
 
 

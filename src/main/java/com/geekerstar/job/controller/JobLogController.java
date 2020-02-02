@@ -9,6 +9,8 @@ import com.geekerstar.common.entity.QueryRequest;
 import com.geekerstar.job.entity.JobLog;
 import com.geekerstar.job.service.IJobLogService;
 import com.wuwenze.poi.ExcelKit;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,7 @@ import java.util.Map;
  * @author Geekerstar
  * @since 2020-02-02
  */
+@Api(tags = "调度日志")
 @Slf4j
 @Validated
 @RestController
@@ -42,6 +45,7 @@ public class JobLogController extends BaseController {
 
     @GetMapping
     @RequiresPermissions("job:log:view")
+    @ApiOperation(value = "调度日志列表", notes = "调度日志列表")
     public GeekResponse jobLogList(QueryRequest request, JobLog log) {
         Map<String, Object> dataTable = getDataTable(this.jobLogService.findJobLogs(request, log));
         return new GeekResponse().success().data(dataTable);
@@ -50,6 +54,7 @@ public class JobLogController extends BaseController {
     @GetMapping("delete/{jobIds}")
     @RequiresPermissions("job:log:delete")
     @ControllerEndPoint(exceptionMessage = "删除调度日志失败")
+    @ApiOperation(value = "删除调度日志", notes = "删除调度日志")
     public GeekResponse deleteJobLog(@NotBlank(message = "{required}") @PathVariable String jobIds) {
         String[] ids = jobIds.split(StringPool.COMMA);
         this.jobLogService.deleteJobLogs(ids);
@@ -59,6 +64,7 @@ public class JobLogController extends BaseController {
     @GetMapping("excel")
     @RequiresPermissions("job:log:export")
     @ControllerEndPoint(exceptionMessage = "导出Excel失败")
+    @ApiOperation(value = "导出Excel", notes = "导出Excel")
     public void export(QueryRequest request, JobLog jobLog, HttpServletResponse response) {
         List<JobLog> jobLogs = this.jobLogService.findJobLogs(request, jobLog).getRecords();
         ExcelKit.$Export(JobLog.class, response).downXlsx(jobLogs, false);

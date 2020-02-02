@@ -1,4 +1,4 @@
-package com.geekerstar.common.configuration;
+package com.geekerstar.common.configure;
 
 import com.baomidou.mybatisplus.core.parser.ISqlParser;
 import com.baomidou.mybatisplus.extension.parsers.BlockAttackSqlParser;

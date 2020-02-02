@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
  * @date 2020/1/31 20:24
  * @description
  */
-@Api("系统管理视图")
+@Api(tags = "系统管理视图")
 @Controller("systemView")
 public class ViewController extends BaseController {
     @Autowired

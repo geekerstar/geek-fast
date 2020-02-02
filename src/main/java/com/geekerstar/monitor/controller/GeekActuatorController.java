@@ -31,7 +31,7 @@ import static com.geekerstar.monitor.endpoint.GeekHttpTraceEndpoint.GeekHttpTrac
  * @date 2020/2/1 11:51
  * @description
  */
-@Api("actuator监控")
+@Api(tags = "actuator监控")
 @Slf4j
 @RestController
 @RequestMapping("geek/actuator")

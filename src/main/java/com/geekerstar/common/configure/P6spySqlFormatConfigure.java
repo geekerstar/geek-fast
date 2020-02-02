@@ -1,4 +1,4 @@
-package com.geekerstar.common.configuration;
+package com.geekerstar.common.configure;
 
 import com.geekerstar.common.util.DateUtil;
 import com.p6spy.engine.spy.appender.MessageFormattingStrategy;

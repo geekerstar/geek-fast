@@ -25,7 +25,7 @@ import java.util.Map;
  * @date 2020/2/1 12:22
  * @description
  */
-@Api("Session日志监控")
+@Api(tags = "Session日志监控")
 @RestController
 @RequestMapping("session")
 public class SessionController {

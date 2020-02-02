@@ -35,7 +35,7 @@ import java.util.Map;
  * @date 2020/1/31 19:54
  * @description
  */
-@Api("登录模块")
+@Api(tags = "登录模块")
 @Validated
 @RestController
 public class LoginController extends BaseController {

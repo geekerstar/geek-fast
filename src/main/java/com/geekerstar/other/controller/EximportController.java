@@ -14,6 +14,8 @@ import com.google.common.collect.Lists;
 import com.wuwenze.poi.ExcelKit;
 import com.wuwenze.poi.handler.ExcelReadHandler;
 import com.wuwenze.poi.pojo.ExcelErrorField;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -40,6 +42,7 @@ import java.util.stream.IntStream;
  * @author Geekerstar
  * @since 2020-02-02
  */
+@Api(tags = "导入导出")
 @RestController
 @RequestMapping("/eximport")
 public class EximportController extends BaseController {
@@ -50,16 +53,16 @@ public class EximportController extends BaseController {
 
     @GetMapping
     @RequiresPermissions("others:eximport:view")
+    @ApiOperation(value = "导入导出列表", notes = "导入导出列表")
     public GeekResponse findEximports(QueryRequest request) {
         Map<String, Object> dataTable = getDataTable(eximportService.findEximports(request, null));
         return new GeekResponse().success().data(dataTable);
     }
 
-    /**
-     * 生成 Excel导入模板
-     */
+
     @GetMapping("template")
     @RequiresPermissions("eximport:template")
+    @ApiOperation(value = "生成 Excel导入模板", notes = "生成 Excel导入模板")
     public void generateImportTemplate(HttpServletResponse response) {
         // 构建数据
         List<Eximport> list = new ArrayList<>();
@@ -74,12 +77,11 @@ public class EximportController extends BaseController {
         ExcelKit.$Export(Eximport.class, response).downXlsx(list, true);
     }
 
-    /**
-     * 导入Excel数据，并批量插入 T_EXIMPORT表
-     */
+
     @PostMapping("import")
     @RequiresPermissions("eximport:import")
     @ControllerEndPoint(exceptionMessage = "导入Excel数据失败")
+    @ApiOperation(value = "导入Excel数据，并批量插入 sys_eximport表", notes = "导入Excel数据，并批量插入 sys_eximport 表")
     public GeekResponse importExcels(MultipartFile file) throws IOException {
         if (file.isEmpty()) {
             throw new GeekException("导入数据为空");
@@ -121,6 +123,7 @@ public class EximportController extends BaseController {
     @GetMapping("excel")
     @RequiresPermissions("eximport:export")
     @ControllerEndPoint(exceptionMessage = "导出Excel失败")
+    @ApiOperation(value = "导出Excel", notes = "导出Excel")
     public void export(QueryRequest queryRequest, Eximport eximport, HttpServletResponse response) {
         List<Eximport> eximports = this.eximportService.findEximports(queryRequest, eximport).getRecords();
         ExcelKit.$Export(Eximport.class, response).downXlsx(eximports, false);

@@ -31,7 +31,7 @@ import java.util.List;
  * @author Geekerstar
  * @since 2020-01-31
  */
-@Api("部门管理")
+@Api(tags = "部门管理")
 @Slf4j
 @RestController
 @RequestMapping("dept")
