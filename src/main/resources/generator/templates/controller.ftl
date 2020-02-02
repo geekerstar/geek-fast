@@ -1,10 +1,10 @@
 package com.geekerstar.system.controller;
 
 import com.geekerstar.common.annotation.ControllerEndpoint;
-import com.geekerstar.common.utils.FebsUtil;
-import com.geekerstar.common.entity.FebsConstant;
+import com.geekerstar.common.utils.GeekUtil;
+import com.geekerstar.common.entity.GeekConstant;
 import com.geekerstar.common.controller.BaseController;
-import com.geekerstar.common.entity.FebsResponse;
+import com.geekerstar.common.entity.GeekResponse;
 import com.geekerstar.common.entity.QueryRequest;
 import ${basePackage}.${entityPackage}.${className};
 import ${basePackage}.${servicePackage}.I${className}Service;
@@ -37,52 +37,52 @@ public class ${className}Controller extends BaseController {
 @Autowired
 private I${className}Service ${className?uncap_first}Service;
 
-@GetMapping(FebsConstant.VIEW_PREFIX + "${className?uncap_first}")
+@GetMapping(GeekConstant.VIEW_PREFIX + "${className?uncap_first}")
 public String ${className?uncap_first}Index(){
-return FebsUtil.view("${className?uncap_first}/${className?uncap_first}");
+return GeekUtil.view("${className?uncap_first}/${className?uncap_first}");
 }
 
 @GetMapping("${className?uncap_first}")
 @ResponseBody
 @RequiresPermissions("${className?uncap_first}:list")
-public FebsResponse getAll${className}s(${className} ${className?uncap_first}) {
-return new FebsResponse().success().data(${className?uncap_first}Service.find${className}s(${className?uncap_first}));
+public GeekResponse getAll${className}s(${className} ${className?uncap_first}) {
+return new GeekResponse().success().data(${className?uncap_first}Service.find${className}s(${className?uncap_first}));
 }
 
 @GetMapping("${className?uncap_first}/list")
 @ResponseBody
 @RequiresPermissions("${className?uncap_first}:list")
-public FebsResponse ${className?uncap_first}List(QueryRequest request, ${className} ${className?uncap_first}) {
+public GeekResponse ${className?uncap_first}List(QueryRequest request, ${className} ${className?uncap_first}) {
 Map
 <String, Object> dataTable = getDataTable(this.${className?uncap_first}Service.find${className}s(request, ${className?uncap_first}));
-return new FebsResponse().success().data(dataTable);
+return new GeekResponse().success().data(dataTable);
 }
 
 @ControllerEndpoint(operation = "新增${className}", exceptionMessage = "新增${className}失败")
 @PostMapping("${className?uncap_first}")
 @ResponseBody
 @RequiresPermissions("${className?uncap_first}:add")
-public FebsResponse add${className}(@Valid ${className} ${className?uncap_first}) {
+public GeekResponse add${className}(@Valid ${className} ${className?uncap_first}) {
 this.${className?uncap_first}Service.create${className}(${className?uncap_first});
-return new FebsResponse().success();
+return new GeekResponse().success();
 }
 
 @ControllerEndpoint(operation = "删除${className}", exceptionMessage = "删除${className}失败")
 @GetMapping("${className?uncap_first}/delete")
 @ResponseBody
 @RequiresPermissions("${className?uncap_first}:delete")
-public FebsResponse delete${className}(${className} ${className?uncap_first}) {
+public GeekResponse delete${className}(${className} ${className?uncap_first}) {
 this.${className?uncap_first}Service.delete${className}(${className?uncap_first});
-return new FebsResponse().success();
+return new GeekResponse().success();
 }
 
 @ControllerEndpoint(operation = "修改${className}", exceptionMessage = "修改${className}失败")
 @PostMapping("${className?uncap_first}/update")
 @ResponseBody
 @RequiresPermissions("${className?uncap_first}:update")
-public FebsResponse update${className}(${className} ${className?uncap_first}) {
+public GeekResponse update${className}(${className} ${className?uncap_first}) {
 this.${className?uncap_first}Service.update${className}(${className?uncap_first});
-return new FebsResponse().success();
+return new GeekResponse().success();
 }
 
 @ControllerEndpoint(operation = "修改${className}", exceptionMessage = "导出Excel失败")
