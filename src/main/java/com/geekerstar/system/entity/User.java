@@ -38,7 +38,7 @@ public class User implements Serializable {
     // 默认头像
     public static final String DEFAULT_AVATAR = "default.jpg";
     // 默认密码
-    public static final String DEFAULT_PASSWORD = "123456";
+    public static final String DEFAULT_PASSWORD = "111111";
     // 性别男
     public static final String SEX_MALE = "0";
     // 性别女

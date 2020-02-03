@@ -18,6 +18,7 @@ import com.geekerstar.system.entity.UserRole;
 import com.geekerstar.system.mapper.UserMapper;
 import com.geekerstar.system.service.IUserRoleService;
 import com.geekerstar.system.service.IUserService;
+import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -166,7 +167,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         user.setStatus(User.STATUS_VALID);
         user.setSex(User.SEX_UNKNOW);
         user.setAvatar(User.DEFAULT_AVATAR);
-        user.setTheme(User.THEME_BLACK);
+        user.setTheme(User.THEME_WHITE);
         user.setIsTab(User.TAB_OPEN);
         user.setDescription("注册用户");
         this.save(user);
@@ -185,7 +186,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     private void setUserRoles(User user, String[] roles) {
-        List<UserRole> userRoles = new ArrayList<>();
+        List<UserRole> userRoles = Lists.newArrayList();
         Arrays.stream(roles).forEach(roleId -> {
             UserRole userRole = new UserRole();
             userRole.setUserId(user.getUserId());

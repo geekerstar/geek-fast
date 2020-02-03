@@ -12,6 +12,7 @@ import com.geekerstar.common.util.TreeUtil;
 import com.geekerstar.system.entity.Dept;
 import com.geekerstar.system.mapper.DeptMapper;
 import com.geekerstar.system.service.IDeptService;
+import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -65,7 +66,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
     }
 
     @Override
-    @Transactional()
+    @Transactional
     public void createDept(Dept dept) {
         Long parentId = dept.getParentId();
         if (parentId == null) {
@@ -76,20 +77,20 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
     }
 
     @Override
-    @Transactional()
+    @Transactional
     public void removeDepts(String[] ids) {
         this.delete(Arrays.asList(ids));
     }
 
     @Override
-    @Transactional()
+    @Transactional
     public void updateDept(Dept dept) {
         dept.setModifyTime(LocalDateTime.now());
         this.baseMapper.updateById(dept);
     }
 
     private List<DeptTree<Dept>> convertDepts(List<Dept> deptList) {
-        List<DeptTree<Dept>> treeList = new ArrayList<>();
+        List<DeptTree<Dept>> treeList = Lists.newArrayList();
         deptList.forEach(dept -> {
             DeptTree<Dept> tree = new DeptTree<>();
             tree.setId(String.valueOf(dept.getDeptId()));
@@ -107,7 +108,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
         queryWrapper.in(Dept::getParentId, deptIds);
         List<Dept> depts = baseMapper.selectList(queryWrapper);
         if (CollectionUtils.isNotEmpty(depts)) {
-            List<String> deptIdList = new ArrayList<>();
+            List<String> deptIdList = Lists.newArrayList();
             depts.forEach(d -> deptIdList.add(String.valueOf(d.getDeptId())));
             this.delete(deptIdList);
         }

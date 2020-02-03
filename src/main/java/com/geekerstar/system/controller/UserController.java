@@ -47,9 +47,6 @@ public class UserController extends BaseController {
     @Weblog(description = "获取用户信息")
     @ControllerEndPoint(exceptionMessage = "获取用户信息失败")
     @ApiOperation(value = "获取用户信息", notes = "获取用户信息")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "username", value = "用户名", paramType = "query", required = true, defaultValue = "")
-    })
     public User getUser(@NotBlank(message = "{required}") @PathVariable String username) {
         return this.userService.findUserDetailList(username);
     }
@@ -57,10 +54,6 @@ public class UserController extends BaseController {
     @GetMapping("check/{username}")
     @Weblog(description = "检查用户名")
     @ApiOperation(value = "检查用户名", notes = "检查用户名")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "username", value = "用户名", paramType = "query", required = true, defaultValue = ""),
-            @ApiImplicitParam(name = "userId", value = "用户id", paramType = "query", required = true, defaultValue = "")
-    })
     public Boolean checkUserName(@NotBlank(message = "{required}") @PathVariable String username, String userId) {
         return this.userService.findByName(username) == null || StringUtils.isNotBlank(userId);
     }
@@ -69,10 +62,6 @@ public class UserController extends BaseController {
     @Weblog(description = "用户列表")
     @RequiresPermissions("user:view")
     @ApiOperation(value = "用户列表", notes = "用户列表")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "user", value = "用户", paramType = "body", required = true, defaultValue = ""),
-            @ApiImplicitParam(name = "request", value = "查询请求", paramType = "body", required = true, defaultValue = "")
-    })
     public GeekResponse userList(User user, QueryRequest request) {
         Map<String, Object> dataTable = getDataTable(this.userService.findUserDetailList(user, request));
         return new GeekResponse().success().data(dataTable);
@@ -83,9 +72,6 @@ public class UserController extends BaseController {
     @RequiresPermissions("user:add")
     @ControllerEndPoint(operation = "新增用户", exceptionMessage = "新增用户失败")
     @ApiOperation(value = "新增用户", notes = "新增用户")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "user", value = "用户", paramType = "body", required = true, defaultValue = "")
-    })
     public GeekResponse addUser(@Valid User user) {
         this.userService.createUser(user);
         return new GeekResponse().success();
@@ -96,9 +82,6 @@ public class UserController extends BaseController {
     @RequiresPermissions("user:delete")
     @ControllerEndPoint(operation = "删除用户", exceptionMessage = "删除用户失败")
     @ApiOperation(value = "删除用户", notes = "删除用户")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "userIds", value = "用户id", paramType = "query", required = true, defaultValue = "")
-    })
     public GeekResponse deleteUsers(@NotBlank(message = "{required}") @PathVariable String userIds) {
         String[] ids = userIds.split(StringPool.COMMA);
         this.userService.deleteUsers(ids);
@@ -110,9 +93,6 @@ public class UserController extends BaseController {
     @RequiresPermissions("user:update")
     @ControllerEndPoint(operation = "修改用户", exceptionMessage = "修改用户失败")
     @ApiOperation(value = "修改用户", notes = "修改用户")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "user", value = "用户", paramType = "body", required = true, defaultValue = "")
-    })
     public GeekResponse updateUser(@Valid User user) {
         if (user.getUserId() == null) {
             throw new GeekException("用户ID为空");
@@ -126,9 +106,6 @@ public class UserController extends BaseController {
     @RequiresPermissions("user:password:reset")
     @ControllerEndPoint(exceptionMessage = "重置用户密码失败")
     @ApiOperation(value = "重置密码", notes = "重置密码")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "usernames", value = "用户名", paramType = "query", required = true, defaultValue = "")
-    })
     public GeekResponse resetPassword(@NotBlank(message = "{required}") @PathVariable String usernames) {
         String[] usernameArr = usernames.split(StringPool.COMMA);
         this.userService.resetPassword(usernameArr);
@@ -139,10 +116,6 @@ public class UserController extends BaseController {
     @Weblog(description = "修改密码")
     @ControllerEndPoint(exceptionMessage = "修改密码失败")
     @ApiOperation(value = "修改密码", notes = "修改密码")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "oldPassword", value = "旧密码", paramType = "query", required = true, defaultValue = ""),
-            @ApiImplicitParam(name = "newPassword", value = "新密码", paramType = "query", required = true, defaultValue = "")
-    })
     public GeekResponse updatePassword(
             @NotBlank(message = "{required}") String oldPassword,
             @NotBlank(message = "{required}") String newPassword) {
@@ -158,9 +131,6 @@ public class UserController extends BaseController {
     @Weblog(description = "修改头像")
     @ControllerEndPoint(exceptionMessage = "修改头像失败")
     @ApiOperation(value = "修改头像", notes = "修改头像")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "image", value = "头像", paramType = "query", required = true, defaultValue = "")
-    })
     public GeekResponse updateAvatar(@NotBlank(message = "{required}") @PathVariable String image) {
         User user = getCurrentUser();
         this.userService.updateAvatar(user.getUsername(), image);
@@ -171,10 +141,6 @@ public class UserController extends BaseController {
     @Weblog(description = "修改系统配置")
     @ControllerEndPoint(exceptionMessage = "修改系统配置失败")
     @ApiOperation(value = "修改系统配置", notes = "修改系统配置")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "theme", value = "主题", paramType = "query", required = true, defaultValue = ""),
-            @ApiImplicitParam(name = "isTab", value = "是否Tab", paramType = "query", required = true, defaultValue = "")
-    })
     public GeekResponse updateTheme(String theme, String isTab) {
         User user = getCurrentUser();
         this.userService.updateTheme(user.getUsername(), theme, isTab);
@@ -185,9 +151,6 @@ public class UserController extends BaseController {
     @Weblog(description = "修改个人信息")
     @ControllerEndPoint(exceptionMessage = "修改个人信息失败")
     @ApiOperation(value = "修改个人信息", notes = "修改个人信息")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "user", value = "用户", paramType = "body", required = true, defaultValue = "")
-    })
     public GeekResponse updateProfile(User user) throws GeekException {
         User currentUser = getCurrentUser();
         user.setUserId(currentUser.getUserId());

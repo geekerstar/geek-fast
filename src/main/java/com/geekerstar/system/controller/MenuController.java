@@ -49,8 +49,9 @@ public class MenuController extends BaseController {
     })
     public GeekResponse getUserMenus(@NotBlank(message = "{required}") @PathVariable String username) throws GeekException {
         User currentUser = getCurrentUser();
-        if (!StringUtils.equalsIgnoreCase(username, currentUser.getUsername()))
+        if (!StringUtils.equalsIgnoreCase(username, currentUser.getUsername())) {
             throw new GeekException("您无权获取别人的菜单");
+        }
         MenuTree<Menu> userMenus = this.menuService.findUserMenus(username);
         return new GeekResponse().data(userMenus);
     }
@@ -59,9 +60,6 @@ public class MenuController extends BaseController {
     @Weblog(description = "获取菜单树")
     @ControllerEndPoint(exceptionMessage = "获取菜单树失败")
     @ApiOperation(value = "获取菜单树", notes = "获取菜单树获取菜单树")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "menu", value = "菜单", paramType = "body", required = true, defaultValue = "")
-    })
     public GeekResponse getMenuTree(Menu menu) {
         MenuTree<Menu> menus = this.menuService.findMenus(menu);
         return new GeekResponse().success().data(menus.getChilds());
@@ -72,9 +70,6 @@ public class MenuController extends BaseController {
     @RequiresPermissions("menu:add")
     @ControllerEndPoint(operation = "新增菜单/按钮", exceptionMessage = "新增菜单/按钮失败")
     @ApiOperation(value = "新增菜单", notes = "新增菜单")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "menu", value = "菜单", paramType = "body", required = true, defaultValue = "")
-    })
     public GeekResponse addMenu(@Valid Menu menu) {
         this.menuService.createMenu(menu);
         return new GeekResponse().success();
@@ -85,9 +80,6 @@ public class MenuController extends BaseController {
     @RequiresPermissions("menu:delete")
     @ControllerEndPoint(operation = "删除菜单/按钮", exceptionMessage = "删除菜单/按钮失败")
     @ApiOperation(value = "删除菜单", notes = "删除菜单")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "menuIds", value = "菜单id", paramType = "query", required = true, defaultValue = "")
-    })
     public GeekResponse deleteMenus(@NotBlank(message = "{required}") @PathVariable String menuIds) {
         this.menuService.deleteMeuns(menuIds);
         return new GeekResponse().success();
@@ -98,9 +90,6 @@ public class MenuController extends BaseController {
     @RequiresPermissions("menu:update")
     @ControllerEndPoint(operation = "修改菜单/按钮", exceptionMessage = "修改菜单/按钮失败")
     @ApiOperation(value = "修改菜单", notes = "修改菜单")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "menu", value = "菜单", paramType = "body", required = true, defaultValue = "")
-    })
     public GeekResponse updateMenu(@Valid Menu menu) {
         this.menuService.updateMenu(menu);
         return new GeekResponse().success();

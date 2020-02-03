@@ -42,9 +42,6 @@ public class RoleController extends BaseController {
     @GetMapping
     @Weblog(description = "获取所有角色")
     @ApiOperation(value = "获取所有角色", notes = "获取所有角色")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "role", value = "角色", paramType = "body", required = true, defaultValue = "")
-    })
     public GeekResponse getAllRoles(Role role) {
         return new GeekResponse().success().data(roleService.findRoles(role));
     }
@@ -53,10 +50,6 @@ public class RoleController extends BaseController {
     @Weblog(description = "角色列表")
     @RequiresPermissions("role:view")
     @ApiOperation(value = "角色列表", notes = "角色列表")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "role", value = "角色", paramType = "body", required = true, defaultValue = ""),
-            @ApiImplicitParam(name = "request", value = "查询请求", paramType = "body", required = true, defaultValue = "")
-    })
     public GeekResponse roleList(Role role, QueryRequest request) {
         Map<String, Object> dataTable = getDataTable(this.roleService.findRoles(role, request));
         return new GeekResponse().success().data(dataTable);
@@ -67,9 +60,6 @@ public class RoleController extends BaseController {
     @RequiresPermissions("role:add")
     @ControllerEndPoint(operation = "新增角色", exceptionMessage = "新增角色失败")
     @ApiOperation(value = "新增角色", notes = "新增角色")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "role", value = "角色", paramType = "body", required = true, defaultValue = "")
-    })
     public GeekResponse addRole(@Valid Role role) {
         this.roleService.createRole(role);
         return new GeekResponse().success();
@@ -80,9 +70,6 @@ public class RoleController extends BaseController {
     @RequiresPermissions("role:delete")
     @ControllerEndPoint(operation = "删除角色", exceptionMessage = "删除角色失败")
     @ApiOperation(value = "删除角色", notes = "删除角色")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "roleIds", value = "角色id", paramType = "query", required = true, defaultValue = "")
-    })
     public GeekResponse deleteRoles(@NotBlank(message = "{required}") @PathVariable String roleIds) {
         this.roleService.deleteRoles(roleIds);
         return new GeekResponse().success();
@@ -93,9 +80,6 @@ public class RoleController extends BaseController {
     @RequiresPermissions("role:update")
     @ControllerEndPoint(operation = "修改角色", exceptionMessage = "修改角色失败")
     @ApiOperation(value = "修改角色", notes = "修改角色")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "role", value = "角色", paramType = "body", required = true, defaultValue = "")
-    })
     public GeekResponse updateRole(Role role) {
         this.roleService.updateRole(role);
         return new GeekResponse().success();
@@ -106,10 +90,6 @@ public class RoleController extends BaseController {
     @RequiresPermissions("role:export")
     @ControllerEndPoint(exceptionMessage = "导出Excel失败")
     @ApiOperation(value = "导出Excel", notes = "导出Excel")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "queryRequest", value = "查询请求", paramType = "body", required = true, defaultValue = ""),
-            @ApiImplicitParam(name = "role", value = "角色", paramType = "body", required = true, defaultValue = "")
-    })
     public void export(QueryRequest queryRequest, Role role, HttpServletResponse response) throws GeekException {
         List<Role> roles = this.roleService.findRoles(role, queryRequest).getRecords();
         ExcelKit.$Export(Role.class, response).downXlsx(roles, false);

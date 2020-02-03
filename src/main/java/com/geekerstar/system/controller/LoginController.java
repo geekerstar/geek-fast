@@ -9,6 +9,7 @@ import com.geekerstar.common.util.MD5Util;
 import com.geekerstar.monitor.service.ILoginLogService;
 import com.geekerstar.system.entity.User;
 import com.geekerstar.system.service.IUserService;
+import com.google.common.collect.Maps;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -90,10 +91,11 @@ public class LoginController extends BaseController {
     }
 
     @GetMapping("index/{username}")
+    @ApiOperation(value = "获取首页信息", notes = "获取首页信息")
     public GeekResponse index(@NotBlank(message = "{required}") @PathVariable String username) {
         // 更新登录时间
         this.userService.updateLoginTime(username);
-        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> data = Maps.newHashMap();
         // 获取系统访问记录
         Long totalVisitCount = this.loginLogService.findTotalVisitCount();
         data.put("totalVisitCount", totalVisitCount);

@@ -12,6 +12,7 @@ import com.geekerstar.system.entity.Menu;
 import com.geekerstar.system.mapper.MenuMapper;
 import com.geekerstar.system.service.IMenuService;
 import com.geekerstar.system.service.IRoleMenuService;
+import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -104,7 +105,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     }
 
     private List<MenuTree<Menu>> convertMenus(List<Menu> menus) {
-        List<MenuTree<Menu>> trees = new ArrayList<>();
+        List<MenuTree<Menu>> trees = Lists.newArrayList();
         menus.forEach(menu -> {
             MenuTree<Menu> tree = new MenuTree<>();
             tree.setId(String.valueOf(menu.getMenuId()));
@@ -119,8 +120,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     }
 
     private void setMenu(Menu menu) {
-        if (menu.getParentId() == null)
+        if (menu.getParentId() == null) {
             menu.setParentId(Menu.TOP_NODE);
+        }
         if (Menu.TYPE_BUTTON.equals(menu.getType())) {
             menu.setUrl(null);
             menu.setIcon(null);
@@ -128,14 +130,14 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     }
 
     private void delete(List<String> menuIds) {
-        List<String> list = new ArrayList<>(menuIds);
+        List<String> list = Lists.newArrayListWithCapacity(menuIds.size());
         removeByIds(menuIds);
 
         LambdaQueryWrapper<Menu> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.in(Menu::getParentId, menuIds);
         List<Menu> menus = baseMapper.selectList(queryWrapper);
         if (CollectionUtils.isNotEmpty(menus)) {
-            List<String> menuIdList = new ArrayList<>();
+            List<String> menuIdList = Lists.newArrayList();
             menus.forEach(m -> menuIdList.add(String.valueOf(m.getMenuId())));
             list.addAll(menuIdList);
             this.roleMenuService.deleteRoleMenusByMenuId(list);

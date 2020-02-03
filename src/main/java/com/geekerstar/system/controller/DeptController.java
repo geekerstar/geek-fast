@@ -52,9 +52,6 @@ public class DeptController {
     @Weblog(description = "获取部门树信息")
     @ControllerEndPoint(exceptionMessage = "获取部门树失败")
     @ApiOperation(value = "获取部门树信息", notes = "获取部门树信息")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "dept", value = "部门", paramType = "body", required = true, defaultValue = "")
-    })
     public GeekResponse getDeptTree(Dept dept) throws GeekException {
         List<DeptTree<Dept>> deptTreeList = this.deptService.findDepts(dept);
         return new GeekResponse().success().data(deptTreeList);
@@ -63,11 +60,8 @@ public class DeptController {
     @PostMapping
     @Weblog(description = "新增部门")
     @RequiresPermissions("dept:add")
-    @ApiOperation(value = "新增部门", notes = "新增部门")
     @ControllerEndPoint(operation = "新增部门", exceptionMessage = "新增部门失败")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "dept", value = "部门", paramType = "body", required = true, defaultValue = "")
-    })
+    @ApiOperation(value = "新增部门", notes = "新增部门")
     public GeekResponse addDept(@Valid Dept dept) {
         this.deptService.createDept(dept);
         return new GeekResponse().success();
@@ -76,11 +70,8 @@ public class DeptController {
     @GetMapping("delete/{deptIds}")
     @Weblog(description = "删除部门")
     @RequiresPermissions("dept:delete")
-    @ApiOperation(value = "删除部门", notes = "删除部门")
     @ControllerEndPoint(operation = "删除部门", exceptionMessage = "删除部门失败")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "deptIds", value = "部门id", paramType = "query", required = true, defaultValue = "")
-    })
+    @ApiOperation(value = "删除部门", notes = "删除部门")
     public GeekResponse removeDepts(@NotBlank(message = "{required}") @PathVariable String deptIds) {
         String[] ids = deptIds.split(StringPool.COMMA);
         this.deptService.removeDepts(ids);
@@ -90,11 +81,8 @@ public class DeptController {
     @PostMapping("update")
     @Weblog(description = "修改部门")
     @RequiresPermissions("dept:update")
-    @ApiOperation(value = "修改部门", notes = "修改部门")
     @ControllerEndPoint(operation = "修改部门", exceptionMessage = "修改部门失败")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "dept", value = "部门", paramType = "body", required = true, defaultValue = "")
-    })
+    @ApiOperation(value = "修改部门", notes = "修改部门")
     public GeekResponse updateDept(@Valid Dept dept) throws GeekException {
         this.deptService.updateDept(dept);
         return new GeekResponse().success();
@@ -103,8 +91,8 @@ public class DeptController {
     @GetMapping("excel")
     @Weblog(description = "导出Excel")
     @RequiresPermissions("dept:export")
-    @ApiOperation(value = "导出Excel", notes = "导出Excel")
     @ControllerEndPoint(operation = "导出Excel", exceptionMessage = "导出Excel失败")
+    @ApiOperation(value = "导出Excel", notes = "导出Excel")
     public void export(Dept dept, QueryRequest request, HttpServletResponse response) throws GeekException {
         List<Dept> deptList = this.deptService.findDepts(dept, request);
         ExcelKit.$Export(Dept.class, response).downXlsx(deptList, false);

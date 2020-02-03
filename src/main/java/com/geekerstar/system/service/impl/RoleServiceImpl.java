@@ -15,6 +15,7 @@ import com.geekerstar.system.mapper.RoleMapper;
 import com.geekerstar.system.service.IRoleMenuService;
 import com.geekerstar.system.service.IRoleService;
 import com.geekerstar.system.service.IUserRoleService;
+import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,8 +54,9 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     @Override
     public List<Role> findRoles(Role role) {
         QueryWrapper<Role> queryWrapper = new QueryWrapper<>();
-        if (StringUtils.isNotBlank(role.getRoleName()))
+        if (StringUtils.isNotBlank(role.getRoleName())) {
             queryWrapper.lambda().like(Role::getRoleName, role.getRoleName());
+        }
         return this.baseMapper.selectList(queryWrapper);
     }
 
@@ -83,7 +85,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     public void updateRole(Role role) {
         role.setModifyTime(LocalDateTime.now());
         this.updateById(role);
-        List<String> roleIdList = new ArrayList<>();
+        List<String> roleIdList = Lists.newArrayList();
         roleIdList.add(String.valueOf(role.getRoleId()));
         this.roleMenuService.deleteRoleMenusByRoleId(roleIdList);
         saveRoleMenus(role);
@@ -104,7 +106,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     private void saveRoleMenus(Role role) {
         if (StringUtils.isNotBlank(role.getMenuIds())) {
             String[] menuIds = role.getMenuIds().split(StringPool.COMMA);
-            List<RoleMenu> roleMenus = new ArrayList<>();
+            List<RoleMenu> roleMenus = Lists.newArrayList();
             Arrays.stream(menuIds).forEach(menuId -> {
                 RoleMenu roleMenu = new RoleMenu();
                 roleMenu.setMenuId(Long.valueOf(menuId));
