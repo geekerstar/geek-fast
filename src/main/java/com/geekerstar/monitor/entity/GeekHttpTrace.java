@@ -1,5 +1,7 @@
 package com.geekerstar.monitor.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -11,28 +13,23 @@ import java.net.URI;
  * @description
  */
 @Data
+@ApiModel("请求追踪实体")
 public class GeekHttpTrace implements Serializable {
 
     private static final long serialVersionUID = -7930808804323157107L;
 
-    /**
-     * 请求时间
-     */
+    @ApiModelProperty("请求时间")
     private String requestTime;
-    /**
-     * 请求方法
-     */
+
+    @ApiModelProperty("请求方法")
     private String method;
-    /**
-     * 请求 url
-     */
+
+    @ApiModelProperty("请求 url")
     private URI url;
-    /**
-     * 响应状态
-     */
+
+    @ApiModelProperty("响应状态")
     private int status;
-    /**
-     * 耗时
-     */
+
+    @ApiModelProperty("耗时")
     private Long timeTaken;
 }

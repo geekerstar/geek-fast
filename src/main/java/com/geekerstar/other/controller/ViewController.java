@@ -2,6 +2,7 @@ package com.geekerstar.other.controller;
 
 import com.geekerstar.common.entity.GeekConstant;
 import com.geekerstar.common.util.GeekUtil;
+import io.swagger.annotations.Api;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @date 2020/2/1 18:39
  * @description
  */
+@Api(tags = "其他模块视图")
 @Controller("othersView")
 @RequestMapping(GeekConstant.VIEW_PREFIX + "others")
 public class ViewController {

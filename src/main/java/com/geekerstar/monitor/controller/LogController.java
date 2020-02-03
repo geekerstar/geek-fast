@@ -46,10 +46,6 @@ public class LogController extends BaseController {
     @Weblog(description = "日志列表")
     @RequiresPermissions("log:view")
     @ApiOperation(value = "日志列表", notes = "日志列表")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "log", value = "日志", paramType = "body", required = true, defaultValue = ""),
-            @ApiImplicitParam(name = "request", value = "查询请求", paramType = "body", required = true, defaultValue = "")
-    })
     public GeekResponse logList(Log log, QueryRequest request) {
         Map<String, Object> dataTable = getDataTable(this.logService.findLogs(log, request));
         return new GeekResponse().success().data(dataTable);
@@ -60,9 +56,6 @@ public class LogController extends BaseController {
     @RequiresPermissions("log:delete")
     @ControllerEndPoint(exceptionMessage = "删除日志失败")
     @ApiOperation(value = "删除日志", notes = "删除日志")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "ids", value = "日志id", paramType = "query", required = true, defaultValue = "")
-    })
     public GeekResponse deleteLogss(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] logIds = ids.split(StringPool.COMMA);
         this.logService.deleteLogs(logIds);

@@ -4,6 +4,7 @@ import com.geekerstar.common.entity.GeekConstant;
 import com.geekerstar.common.util.GeekUtil;
 import com.geekerstar.job.entity.Job;
 import com.geekerstar.job.service.IJobService;
+import io.swagger.annotations.Api;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import javax.validation.constraints.NotBlank;
  * @date 2020/2/2 12:42
  * @description
  */
+@Api(tags = "任务调度视图")
 @Controller("jobView")
 @RequestMapping(GeekConstant.VIEW_PREFIX + "job")
 public class ViewController {

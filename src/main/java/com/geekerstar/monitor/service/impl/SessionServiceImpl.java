@@ -5,6 +5,7 @@ import com.geekerstar.common.util.DateUtil;
 import com.geekerstar.monitor.entity.ActiveUser;
 import com.geekerstar.monitor.service.ISessionService;
 import com.geekerstar.system.entity.User;
+import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
@@ -32,7 +33,7 @@ public class SessionServiceImpl implements ISessionService {
     public List<ActiveUser> list(String username) {
         String currentSessionId = (String) SecurityUtils.getSubject().getSession().getId();
 
-        List<ActiveUser> list = new ArrayList<>();
+        List<ActiveUser> list = Lists.newArrayList();
         Collection<Session> sessions = sessionDAO.getActiveSessions();
         for (Session session : sessions) {
             ActiveUser activeUser = new ActiveUser();

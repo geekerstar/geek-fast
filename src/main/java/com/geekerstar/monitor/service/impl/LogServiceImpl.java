@@ -13,6 +13,7 @@ import com.geekerstar.monitor.entity.Log;
 import com.geekerstar.monitor.mapper.LogMapper;
 import com.geekerstar.monitor.service.ILogService;
 import com.geekerstar.system.entity.User;
+import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -44,7 +45,6 @@ public class LogServiceImpl extends ServiceImpl<LogMapper, Log> implements ILogS
     @Override
     public IPage<Log> findLogs(Log log, QueryRequest request) {
         QueryWrapper<Log> queryWrapper = new QueryWrapper<>();
-
         if (StringUtils.isNotBlank(log.getUsername())) {
             queryWrapper.lambda().eq(Log::getUsername, log.getUsername().toLowerCase());
         }
@@ -114,8 +114,8 @@ public class LogServiceImpl extends ServiceImpl<LogMapper, Log> implements ILogS
             for (int i = 0; i < args.length; i++) {
                 if (args[i] instanceof Map) {
                     Set set = ((Map) args[i]).keySet();
-                    List<Object> list = new ArrayList<>();
-                    List<Object> paramList = new ArrayList<>();
+                    List<Object> list = Lists.newArrayList();
+                    List<Object> paramList = Lists.newArrayList();
                     for (Object key : set) {
                         list.add(((Map) args[i]).get(key));
                         paramList.add(key);

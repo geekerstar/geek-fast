@@ -46,10 +46,6 @@ public class LoginLogController extends BaseController {
     @Weblog(description = "登录日志列表")
     @RequiresPermissions("loginlog:view")
     @ApiOperation(value = "登录日志列表", notes = "登录日志列表")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "loginLog", value = "登录日志", paramType = "body", required = true, defaultValue = ""),
-            @ApiImplicitParam(name = "request", value = "查询请求", paramType = "body", required = true, defaultValue = "")
-    })
     public GeekResponse loginLogList(LoginLog loginLog, QueryRequest request) {
         Map<String, Object> dataTable = getDataTable(this.loginLogService.findLoginLogs(loginLog, request));
         return new GeekResponse().success().data(dataTable);
@@ -60,9 +56,6 @@ public class LoginLogController extends BaseController {
     @RequiresPermissions("loginlog:delete")
     @ControllerEndPoint(exceptionMessage = "删除登录日志失败")
     @ApiOperation(value = "删除登录日志", notes = "删除登录日志")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "ids", value = "登录日志id", paramType = "query", required = true, defaultValue = "")
-    })
     public GeekResponse deleteLogs(@NotBlank(message = "{required}") @PathVariable String ids) {
         String[] loginLogIds = ids.split(StringPool.COMMA);
         this.loginLogService.deleteLoginLogs(loginLogIds);

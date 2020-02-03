@@ -4,6 +4,7 @@ import com.geekerstar.common.annotation.Weblog;
 import com.geekerstar.common.entity.GeekResponse;
 import com.geekerstar.monitor.entity.ActiveUser;
 import com.geekerstar.monitor.service.ISessionService;
+import com.google.common.collect.Maps;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -29,6 +30,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("session")
 public class SessionController {
+
     @Autowired
     private ISessionService sessionService;
 
@@ -36,12 +38,9 @@ public class SessionController {
     @Weblog(description = "在线用户列表")
     @RequiresPermissions("online:view")
     @ApiOperation(value = "在线用户列表", notes = "在线用户列表")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "username", value = "用户名", paramType = "query", required = true, defaultValue = "")
-    })
     public GeekResponse list(String username) {
         List<ActiveUser> list = sessionService.list(username);
-        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> data = Maps.newHashMap();
         data.put("rows", list);
         data.put("total", CollectionUtils.size(list));
         return new GeekResponse().success().data(data);
@@ -51,9 +50,6 @@ public class SessionController {
     @Weblog(description = "踢出用户")
     @RequiresPermissions("user:kickout")
     @ApiOperation(value = "踢出用户", notes = "踢出用户")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "用户id", paramType = "query", required = true, defaultValue = "")
-    })
     public GeekResponse forceLogout(@PathVariable String id) {
         sessionService.forceLogout(id);
         return new GeekResponse().success();

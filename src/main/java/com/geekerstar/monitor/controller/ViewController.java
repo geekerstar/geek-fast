@@ -24,7 +24,7 @@ import static com.geekerstar.monitor.endpoint.GeekMetricsEndpoint.GeekMetricResp
  * @date 2020/2/1 12:28
  * @description
  */
-@Api("监控视图")
+@Api(tags = "监控视图")
 @Controller("monitorView")
 @RequestMapping(GeekConstant.VIEW_PREFIX + "monitor")
 public class ViewController {

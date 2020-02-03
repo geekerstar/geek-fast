@@ -7,6 +7,7 @@ import com.geekerstar.common.util.DateUtil;
 import com.geekerstar.monitor.endpoint.GeekHttpTraceEndpoint;
 import com.geekerstar.monitor.entity.GeekHttpTrace;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -31,7 +32,7 @@ import static com.geekerstar.monitor.endpoint.GeekHttpTraceEndpoint.GeekHttpTrac
  * @date 2020/2/1 11:51
  * @description
  */
-@Api(tags = "actuator监控")
+@Api(tags = "请求追踪监控")
 @Slf4j
 @RestController
 @RequestMapping("geek/actuator")
@@ -45,8 +46,8 @@ public class GeekActuatorController {
     @ControllerEndPoint(exceptionMessage = "请求追踪失败")
     @ApiOperation(value = "请求追踪", notes = "请求追踪")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "method", value = "方法", paramType = "query", required = true, defaultValue = ""),
-            @ApiImplicitParam(name = "url", value = "url", paramType = "query", required = true, defaultValue = "")
+            @ApiImplicitParam(name = "method", value = "HTTP方法(GET、POST)", paramType = "query", required = false, defaultValue = ""),
+            @ApiImplicitParam(name = "url", value = "url", paramType = "query", required = false, defaultValue = "")
     })
     public GeekResponse httpTraces(String method, String url) {
         GeekHttpTraceDescriptor traces = httpTraceEndpoint.traces();
@@ -61,19 +62,22 @@ public class GeekActuatorController {
             geekHttpTrace.setTimeTaken(t.getTimeTaken());
             if (StringUtils.isNotBlank(method) && StringUtils.isNotBlank(url)) {
                 if (StringUtils.equalsIgnoreCase(method, geekHttpTrace.getMethod())
-                        && StringUtils.containsIgnoreCase(geekHttpTrace.getUrl().toString(), url))
+                        && StringUtils.containsIgnoreCase(geekHttpTrace.getUrl().toString(), url)) {
                     geekHttpTraces.add(geekHttpTrace);
+                }
             } else if (StringUtils.isNotBlank(method)) {
-                if (StringUtils.equalsIgnoreCase(method, geekHttpTrace.getMethod()))
+                if (StringUtils.equalsIgnoreCase(method, geekHttpTrace.getMethod())) {
                     geekHttpTraces.add(geekHttpTrace);
+                }
             } else if (StringUtils.isNotBlank(url)) {
-                if (StringUtils.containsIgnoreCase(geekHttpTrace.getUrl().toString(), url))
+                if (StringUtils.containsIgnoreCase(geekHttpTrace.getUrl().toString(), url)) {
                     geekHttpTraces.add(geekHttpTrace);
+                }
             } else {
                 geekHttpTraces.add(geekHttpTrace);
             }
         });
-        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> data = Maps.newHashMap();
         data.put("rows", geekHttpTraces);
         data.put("total", geekHttpTraces.size());
         return new GeekResponse().success().data(data);
