@@ -9,11 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Locale;
 
-/**
- * 时间工具类
- *
- * @author MrBird
- */
+
 public class DateUtil {
 
     public static final String FULL_TIME_PATTERN = "yyyyMMddHHmmss";

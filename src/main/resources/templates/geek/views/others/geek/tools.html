@@ -181,16 +181,16 @@ var url = geek.route.href;
             geek.modal.open('内部网页', 'others/apex/radar', {
                 //传递参数，弹出的页面可以使用 POPUP_DATA.username 获取值
                 data: {
-                    username: 'MrBird'
+                    username: 'Geek'
                 }
             });
         });
         $view.find('#popup-clean').on('click', function () {
-            geek.modal.view('博客地址', 'https://mrbird.cc');
+            geek.modal.view('博客地址', 'https://www.geekerstar.com');
         });
 
         $view.find('#popup-with-button').on('click', function () {
-            geek.modal.view('博客地址', 'https://mrbird.cc', {
+            geek.modal.view('博客地址', 'https://www.geekwestar.comc', {
                 btn: ['确定', '取消'],
                 yes: function () {
                     geek.alert.info('确定按钮回调');
