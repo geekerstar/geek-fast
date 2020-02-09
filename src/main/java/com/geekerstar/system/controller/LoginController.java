@@ -6,6 +6,7 @@ import com.geekerstar.common.entity.GeekResponse;
 import com.geekerstar.common.exception.GeekException;
 import com.geekerstar.common.service.ValidateCodeService;
 import com.geekerstar.common.util.MD5Util;
+import com.geekerstar.monitor.entity.LoginLog;
 import com.geekerstar.monitor.service.ILoginLogService;
 import com.geekerstar.system.entity.User;
 import com.geekerstar.system.service.IUserService;
@@ -67,6 +68,11 @@ public class LoginController extends BaseController {
         password = MD5Util.encrypt(username.toLowerCase(), password);
         UsernamePasswordToken token = new UsernamePasswordToken(username, password, rememberMe);
         super.login(token);
+        // 保存登录日志
+        LoginLog loginLog = new LoginLog();
+        loginLog.setUsername(username);
+        loginLog.setSystemBrowserInfo();
+        this.loginLogService.saveLoginLog(loginLog);
 
         return new GeekResponse().success();
     }

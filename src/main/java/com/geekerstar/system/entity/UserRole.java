@@ -1,5 +1,6 @@
 package com.geekerstar.system.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -25,9 +26,11 @@ public class UserRole implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "用户id")
+    @TableField("user_id")
     private Long userId;
 
     @ApiModelProperty(value = "角色id")
+    @TableField("role_id")
     private Long roleId;
 
 
