@@ -51,7 +51,7 @@ public class LoginController extends BaseController {
     private ILoginLogService loginLogService;
 
     @PostMapping("login")
-    @Weblog(description = "登录")
+//    @Weblog(description = "登录")
     @ApiOperation(value = "登录", notes = "登录")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "username", value = "用户名", paramType = "query", required = true, defaultValue = ""),
@@ -78,7 +78,7 @@ public class LoginController extends BaseController {
     }
 
     @PostMapping("regist")
-    @Weblog(description = "注册")
+//    @Weblog(description = "注册")
     @ApiOperation(value = "注册", notes = "注册")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "username", value = "用户名", paramType = "query", required = true, defaultValue = ""),

@@ -19,7 +19,7 @@ public class ValidateCodeProperties {
     /**
      * 验证码类型，可选值 png和 gif
      */
-    private String type = ImageType.GIF;
+    private String type = ImageType.PNG;
 
     /**
      * 图片宽度，px
