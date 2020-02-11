@@ -37,7 +37,7 @@ public class GeekConfigure {
     /**
      * XssFilter Bean
      */
-    @Bean
+//    @Bean
     public FilterRegistrationBean<XssFilter> xssFilterRegistrationBean() {
         FilterRegistrationBean<XssFilter> filterRegistrationBean = new FilterRegistrationBean<>();
         filterRegistrationBean.setFilter(new XssFilter());
