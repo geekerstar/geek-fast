@@ -18,13 +18,13 @@ spring:
           username: root
           password: root
           driver-class-name: com.mysql.jdbc.Driver
-          url: jdbc:mysql://172.17.108.107:3306/geek_base?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2b8
+          url: jdbc:mysql://39.107.25.229:3306/geek_base?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2b8
         # 数据源-2，名称为 quartz
         quartz:
           username: root
           password: root
           driver-class-name: com.mysql.jdbc.Driver
-          url: jdbc:mysql://172.17.108.107:3306/geek_quartz?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2b8
+          url: jdbc:mysql://39.107.25.229:3306/geek_quartz?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2b8
 
   redis:
     # Redis数据库索引（默认为 0）
