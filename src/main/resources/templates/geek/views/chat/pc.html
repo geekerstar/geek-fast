@@ -1,10 +1,14 @@
-<style>
-    #geek-alert-base geek-alert-error {
-        width: 160px;
-    }
-</style>
+
 <div class="layui-fluid layui-anim geek-anim" id="geek-components-others" lay-title="PC">
     <div class="layui-col-md12 layui-col-sm12 layui-col-xs12">
+        <div class="layui-card">
+            <div class="layui-card-header">开发说明</div>
+            <div class="layui-card-body">
+                <div class="alert">
+                    <span class="geek-alert-base geek-alert-success">模块尚在开发中，当前为前端演示版哦！！！</span>
+                </div>
+            </div>
+        </div>
         <script>
 
             if(!/^http(s*):\/\//.test(location.href)){
@@ -23,7 +27,7 @@
                     '<（@￣︶￣@）>',
                     '你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。',
                     'face[黑线]  你慢慢说，别急……',
-                    '(*^__^*) face[嘻嘻] ，是贤心吗？'
+                    '(*^__^*) face[嘻嘻] ，是大佬吗？'
                 ];
 
                 //基础配置
@@ -146,17 +150,17 @@
                     layim.addList({
                         type: 'group'
                         ,avatar: "http://tva3.sinaimg.cn/crop.64.106.361.361.50/7181dbb3jw8evfbtem8edj20ci0dpq3a.jpg"
-                        ,groupname: 'Angular开发'
+                        ,groupname: 'Java开发'
                         ,id: "12333333"
                         ,members: 0
                     });
                     layim.addList({
                         type: 'friend'
                         ,avatar: "http://tp2.sinaimg.cn/2386568184/180/40050524279/0"
-                        ,username: '冲田杏梨'
+                        ,username: '长泽雅美'
                         ,groupid: 2
                         ,id: "1233333312121212"
-                        ,remark: "本人冲田杏梨将结束AV女优的工作"
+                        ,remark: "麻酱"
                     });
 
                     setTimeout(function(){
@@ -166,7 +170,7 @@
                             ,avatar: "http://qzapp.qlogo.cn/qzapp/100280987/56ADC83E78CEC046F8DF2C5D0DD63CDE/100"
                             ,id: "10000111"
                             ,type: "friend"
-                            ,content: "临时："+ new Date().getTime()
+                            ,content: "临时会话测试："+ new Date().getTime()
                         });
 
                         /*layim.getMessage({

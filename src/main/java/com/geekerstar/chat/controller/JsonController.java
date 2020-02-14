@@ -25,23 +25,21 @@ import java.io.InputStreamReader;
  * @date 2020/2/9 21:31
  * @description
  */
-@Api(tags = "即时通讯Json")
+@Api(tags = "即时通讯数据源(临时测试用)")
 @RestController()
 @CrossOrigin(allowedHeaders = "*",allowCredentials = "true")
-public class JSONController {
+public class JsonController {
     @GetMapping("/json/getList")
     public String getList() throws IOException {
         ClassPathResource jsonFile = new ClassPathResource("json/getList.json");
-        String str = IOUtils.toString(new InputStreamReader(jsonFile.getInputStream(),"UTF-8"));
-        return str;
+        return IOUtils.toString(new InputStreamReader(jsonFile.getInputStream(),"UTF-8"));
     }
 
 
     @GetMapping("/json/getMembers")
     public String getMembers() throws IOException {
         ClassPathResource jsonFile = new ClassPathResource("json/getMembers.json");
-        String str = IOUtils.toString(new InputStreamReader(jsonFile.getInputStream(),"UTF-8"));
-        return str;
+        return IOUtils.toString(new InputStreamReader(jsonFile.getInputStream(),"UTF-8"));
     }
 
 
