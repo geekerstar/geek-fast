@@ -26,6 +26,11 @@ spring:
           driver-class-name: com.mysql.jdbc.Driver
           url: jdbc:mysql://39.107.25.229:3306/geek_quartz?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2b8
 
+
+## 39.107.25.229
+## 172.17.108.107
+
+
   redis:
     # Redis数据库索引（默认为 0）
     database: 0
