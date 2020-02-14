@@ -46,6 +46,13 @@ public class SwaggerConfigure {
     }
 
     @Bean
+    public Docket chatApi() {
+        return new Docket(DocumentationType.SWAGGER_2).groupName("1003.即时通讯").select()
+                .apis(RequestHandlerSelectors.basePackage("com.geekerstar.chat.controller")).paths(PathSelectors.any()).build()
+                .apiInfo(common("即时通讯"));
+    }
+
+    @Bean
     public Docket generatorApi() {
         return new Docket(DocumentationType.SWAGGER_2).groupName("1003.代码生成").select()
                 .apis(RequestHandlerSelectors.basePackage("com.geekerstar.generator.controller")).paths(PathSelectors.any()).build()

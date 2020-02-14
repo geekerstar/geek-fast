@@ -16,8 +16,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller("workflowView")
 @RequestMapping(GeekConstant.VIEW_PREFIX + "workflow")
 public class ViewController {
-    @GetMapping("workflow")
-    public String online() {
-        return GeekUtil.view("workflow/workflow");
+    @GetMapping("instance")
+    public String instance() {
+        return GeekUtil.view("workflow/instance");
+    }
+
+    @GetMapping("historyjob")
+    public String historyjob() {
+        return GeekUtil.view("workflow/historyjob");
+    }
+
+    @GetMapping("historyflow")
+    public String historyflow() {
+        return GeekUtil.view("workflow/historyflow");
     }
 }
