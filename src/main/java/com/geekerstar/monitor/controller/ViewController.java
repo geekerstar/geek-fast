@@ -89,4 +89,9 @@ public class ViewController {
     public String swagger() {
         return GeekUtil.view("monitor/swagger");
     }
+
+    @GetMapping("druid")
+    public String druid() {
+        return GeekUtil.view("monitor/druid");
+    }
 }

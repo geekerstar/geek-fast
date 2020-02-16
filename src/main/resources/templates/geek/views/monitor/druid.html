@@ -1,0 +1,13 @@
+<div class="layui-fluid layui-anim geek-anim" id="geek-druid" lay-title="Druid监控(用户名密码root)">
+    <div class="layui-row geek-container">
+        <iframe id="container" data-th-src="@{/druid/login.html}" frameborder="no" style="width: 100%;"
+                scrolling="auto"/>
+    </div>
+</div>
+<script data-th-inline="javascript" type="text/javascript">
+    layui.use(['jquery'], function () {
+        var $ = layui.jquery,
+            $view = $('#geek-druid');
+        $view.find('#container').css({"height": document.documentElement.clientHeight - 97 + 'px'});
+    });
+</script>

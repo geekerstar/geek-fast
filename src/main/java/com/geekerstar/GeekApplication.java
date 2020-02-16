@@ -1,5 +1,6 @@
 package com.geekerstar;
 
+import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -16,7 +17,7 @@ import java.net.UnknownHostException;
  * description:
  */
 @Slf4j
-@SpringBootApplication
+@SpringBootApplication(exclude = DruidDataSourceAutoConfigure.class)
 @MapperScan(basePackages = "com.geekerstar.*.mapper")
 public class GeekApplication {
 
@@ -33,11 +34,11 @@ public class GeekApplication {
                         + "程序启动成功! 访问路径如下:\n\t"
                         + "本地官方Swagger地址：http://" + localIp + ":" + port + path + "swagger-ui.html\n\t"
                         + "本地新版Swagger地址：http://" + localIp + ":" + port + path + "doc.html\n\t"
-                        + "本地Druid连接池地址：http://" + localIp + ":" + port + path + "druid/\n"
+                        + "本地Druid连接池地址：http://" + localIp + ":" + port + path + "druid/index.html\n"
                         + "----------------------------------------------------------------------------------------------------\n\t"
                         + "线上官方Swagger地址：http://" + onlineIp + ":" + port + path + "swagger-ui.html\n\t"
                         + "线上新版Swagger地址：http://" + onlineIp + ":" + port + path + "doc.html\n\t"
-                        + "线上Druid连接池地址：http://" + onlineIp + ":" + port + path + "druid" + "\n"
+                        + "线上Druid连接池地址：http://" + onlineIp + ":" + port + path + "druid/index.html" + "\n"
                         + "====================================================================================================");
     }
 }
