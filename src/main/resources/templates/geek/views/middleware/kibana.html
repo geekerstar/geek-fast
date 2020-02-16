@@ -1,0 +1,13 @@
+<div class="layui-fluid layui-anim geek-anim" id="geek-kibana" lay-title="Kibana">
+    <div class="layui-row geek-container">
+        <iframe id="container" src="http://fast.geekerstar.com:5601" frameborder="no" style="width: 100%;"
+                scrolling="auto"/>
+    </div>
+</div>
+<script data-th-inline="javascript" type="text/javascript">
+    layui.use(['jquery'], function () {
+        var $ = layui.jquery,
+            $view = $('#geek-kibana');
+        $view.find('#container').css({"height": document.documentElement.clientHeight - 97 + 'px'});
+    });
+</script>

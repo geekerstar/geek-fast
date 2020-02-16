@@ -20,4 +20,14 @@ public class ViewController {
     public String rabbitmq() {
         return GeekUtil.view("middleware/rabbitmq");
     }
+
+    @GetMapping("elasticsearch")
+    public String elasticsearch() {
+        return GeekUtil.view("middleware/elasticsearch");
+    }
+
+    @GetMapping("kibana")
+    public String kibana() {
+        return GeekUtil.view("middleware/kibana");
+    }
 }
