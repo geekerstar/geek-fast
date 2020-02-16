@@ -95,7 +95,7 @@ body, html, #app-header .layui-nav .layui-nav-item a:not(.layui-nav-child-href),
 
 #app-sidebar, #app-sidebar .layui-nav-itemed .layui-nav-child {
     box-shadow: 2px 0 8px 0 rgba(29, 35, 41, 0.05);
-    background-color: #393e46
+    background-color: #0f0c29
 }
 
 .geek-sidebar-shrink #app-sidebar .layui-nav-itemed, #app-sidebar .layui-nav-tree .layui-nav-child dd.layui-this, #app-sidebar .layui-nav-tree .layui-nav-child dd.layui-this a, #app-sidebar .layui-nav-tree .layui-this, #app-sidebar .layui-nav-tree .layui-this > a, .layui-nav-tree .layui-this > a:hover {
@@ -3840,7 +3840,7 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
 }
 
 .layui-nav-itemed > .layui-nav-child {
-    background-color: #393e46 !important
+    background-color: #0f0c29 !important
 }
 
 .geek-theme-white {
