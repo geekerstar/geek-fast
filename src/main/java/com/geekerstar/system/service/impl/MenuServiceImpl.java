@@ -129,7 +129,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     }
 
     private void delete(List<String> menuIds) {
-        List<String> list = Lists.newArrayListWithCapacity(menuIds.size());
+        List<String> list = Lists.newArrayList(menuIds);
         removeByIds(menuIds);
 
         LambdaQueryWrapper<Menu> queryWrapper = new LambdaQueryWrapper<>();

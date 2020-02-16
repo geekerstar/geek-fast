@@ -1,6 +1,5 @@
 package com.geekerstar.system.controller;
 
-import com.geekerstar.common.annotation.Weblog;
 import com.geekerstar.common.controller.BaseController;
 import com.geekerstar.common.entity.GeekResponse;
 import com.geekerstar.common.exception.GeekException;

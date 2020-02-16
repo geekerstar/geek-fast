@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Api(tags = "即时通讯")
 @Controller("chatView")
 @RequestMapping(GeekConstant.VIEW_PREFIX + "chat")
-@CrossOrigin(allowedHeaders = "*",allowCredentials = "true")
+@CrossOrigin(allowedHeaders = "*", allowCredentials = "true")
 public class ViewController {
     @GetMapping("chat")
     public String chat() {
