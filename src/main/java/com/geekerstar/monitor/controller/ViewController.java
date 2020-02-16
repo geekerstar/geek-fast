@@ -94,4 +94,14 @@ public class ViewController {
     public String druid() {
         return GeekUtil.view("monitor/druid");
     }
+
+    @GetMapping("redisInfo")
+    public String redisInfo() {
+        return GeekUtil.view("monitor/redisInfo");
+    }
+
+    @GetMapping("redisTerminal")
+    public String redisTerminal() {
+        return GeekUtil.view("monitor/redisTerminal");
+    }
 }

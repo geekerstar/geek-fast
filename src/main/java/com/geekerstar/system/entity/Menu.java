@@ -52,7 +52,7 @@ public class Menu implements Serializable {
     @ApiModelProperty(value = "菜单/按钮名称")
     @TableField("menu_name")
     @NotBlank(message = "{required}")
-    @Size(max = 10, message = "{noMoreThan}")
+    @Size(max = 20, message = "{noMoreThan}")
     @ExcelField(value = "名称")
     private String menuName;
 
