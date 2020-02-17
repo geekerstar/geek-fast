@@ -1,0 +1,13 @@
+<div class="layui-fluid layui-anim geek-anim" id="geek-cron" lay-title="Cron表达式">
+    <div class="layui-row geek-container">
+        <iframe id="container" src="http://www.bejson.com/othertools/cron/" frameborder="no" style="width: 100%;"
+                scrolling="auto"/>
+    </div>
+</div>
+<script data-th-inline="javascript" type="text/javascript">
+    layui.use(['jquery'], function () {
+        var $ = layui.jquery,
+            $view = $('#geek-cron');
+        $view.find('#container').css({"height": document.documentElement.clientHeight - 97 + 'px'});
+    });
+</script>
