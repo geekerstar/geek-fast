@@ -66,7 +66,7 @@ public class User implements Serializable {
 
     @ApiModelProperty(value = "用户名")
     @TableField("username")
-    @Size(min = 4, max = 10, message = "{range}")
+    @Size(min = 1, max = 15, message = "{range}")
     @ExcelField(value = "用户名")
     private String username;
 
