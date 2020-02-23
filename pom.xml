@@ -225,6 +225,25 @@
             <version>${druid.version}</version>
         </dependency>
 
+
+        <!-- 测试导出引入的依赖开始-->
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.29</version>
+        </dependency>
+        <dependency>
+            <groupId>org.xhtmlrenderer</groupId>
+            <artifactId>flying-saucer-pdf-itext5</artifactId>
+            <version>9.1.6</version>
+        </dependency>
+        <!-- pdf转图片 -->
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>2.0.8</version>
+        </dependency>
+        <!-- 测试导出引入的依赖结束-->
     </dependencies>
 
     <repositories><!-- 代码库 -->
