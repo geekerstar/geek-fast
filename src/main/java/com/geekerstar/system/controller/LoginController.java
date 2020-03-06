@@ -63,6 +63,7 @@ public class LoginController extends BaseController {
             @NotBlank(message = "{required}") String verifyCode,
             boolean rememberMe, HttpServletRequest request) throws GeekException {
         HttpSession session = request.getSession();
+        // 检查验证码
         validateCodeService.check(session.getId(), verifyCode);
         password = MD5Util.encrypt(username.toLowerCase(), password);
         UsernamePasswordToken token = new UsernamePasswordToken(username, password, rememberMe);
@@ -110,6 +111,7 @@ public class LoginController extends BaseController {
         // 获取近期系统访问记录
         List<Map<String, Object>> lastSevenVisitCount = this.loginLogService.findLastSevenDaysVisitCount(null);
         data.put("lastSevenVisitCount", lastSevenVisitCount);
+        // 获取用户近期访问记录
         User param = new User();
         param.setUsername(username);
         List<Map<String, Object>> lastSevenUserVisitCount = this.loginLogService.findLastSevenDaysVisitCount(param);
