@@ -164,11 +164,17 @@ public class ViewController extends BaseController {
         model.addAttribute("user", user);
         if (transform) {
             String ssex = user.getSex();
-            if (User.SEX_MALE.equals(ssex)) user.setSex("男");
-            else if (User.SEX_FEMALE.equals(ssex)) user.setSex("女");
-            else user.setSex("保密");
+            if (User.SEX_MALE.equals(ssex)){
+                user.setSex("男");
+            }
+            else if (User.SEX_FEMALE.equals(ssex)){
+                user.setSex("女");
+            } else {
+                user.setSex("保密");
+            }
         }
-        if (user.getLastLoginTime() != null)
+        if (user.getLastLoginTime() != null){
             model.addAttribute("lastLoginTime", user.getLastLoginTime());
+        }
     }
 }
