@@ -245,6 +245,7 @@
         </dependency>
         <!-- 测试导出引入的依赖结束-->
 
+        <!--webssh依赖开始-->
         <!-- jsch支持 -->
         <dependency>
             <groupId>com.jcraft</groupId>
@@ -267,6 +268,7 @@
             <artifactId>commons-fileupload</artifactId>
             <version>1.3.3</version>
         </dependency>
+        <!--webssh依赖结束-->
     </dependencies>
 
     <repositories><!-- 代码库 -->
