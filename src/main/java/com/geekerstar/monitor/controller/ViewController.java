@@ -104,4 +104,9 @@ public class ViewController {
     public String redisTerminal() {
         return GeekUtil.view("monitor/redisTerminal");
     }
+
+    @GetMapping("webssh")
+    public String webssh() {
+        return GeekUtil.view("monitor/webssh");
+    }
 }

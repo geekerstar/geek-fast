@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class WebSSHController {
-    @RequestMapping("/websshpage")
-    public String websshpage(){
+    @RequestMapping("/webssh")
+    public String webssh(){
         return "webssh";
     }
 }
