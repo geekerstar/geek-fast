@@ -64,6 +64,12 @@ public class SwaggerConfigure {
                 .apiInfo(common("其他模块"));
     }
 
+    @Bean
+    public Docket toolApi() {
+        return new Docket(DocumentationType.SWAGGER_2).groupName("9000.工具模块").select()
+                .apis(RequestHandlerSelectors.basePackage("com.geekerstar.tool")).paths(PathSelectors.any()).build()
+                .apiInfo(common("工具模块"));
+    }
 
     /**
      * 公共信息
