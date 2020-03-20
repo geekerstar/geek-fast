@@ -3,7 +3,7 @@ package com.geekerstar.tool;
 import cn.hutool.core.io.resource.InputStreamResource;
 import cn.hutool.core.lang.Console;
 import cn.hutool.http.HttpUtil;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,10 +18,10 @@ import java.util.Map;
  */
 @RestController
 public class UploadController {
-    private static final String UPLOAD_PATH = "geek";
+    private static final String UPLOAD_PATH = "http://39.107.25.229:8080/group1/upload";
 
-    @RequestMapping("/upload")
-    public String  upload(MultipartFile file) {
+    @PostMapping("/upload")
+    public String upload(MultipartFile file) {
         String result = "";
         try {
             InputStreamResource isr = new InputStreamResource(file.getInputStream(),
@@ -29,7 +29,7 @@ public class UploadController {
 
             Map<String, Object> params = new HashMap<>();
             params.put("file", isr);
-            params.put("path", "86501729");
+            params.put("path", "image");
             params.put("output", "json");
             String resp = HttpUtil.post(UPLOAD_PATH, params);
             Console.log("resp: {}", resp);
