@@ -18,6 +18,8 @@ import java.util.stream.IntStream;
  */
 public class GeekUtil {
 
+    private static final Pattern CHINESE_PATTERN = Pattern.compile("[\u4e00-\u9fa5]");
+
     /**
      * 驼峰转下划线
      *
@@ -25,17 +27,20 @@ public class GeekUtil {
      * @return 结果
      */
     public static String camelToUnderscore(String value) {
-        if (StringUtils.isBlank(value))
+        if (StringUtils.isBlank(value)) {
             return value;
+        }
         String[] arr = StringUtils.splitByCharacterTypeCamelCase(value);
-        if (arr.length == 0)
+        if (arr.length == 0) {
             return value;
+        }
         StringBuilder result = new StringBuilder();
         IntStream.range(0, arr.length).forEach(i -> {
-            if (i != arr.length - 1)
+            if (i != arr.length - 1) {
                 result.append(arr[i]).append(StringPool.UNDERSCORE);
-            else
+            } else {
                 result.append(arr[i]);
+            }
         });
         return StringUtils.lowerCase(result.toString());
     }
@@ -95,9 +100,8 @@ public class GeekUtil {
      * @return 结果
      */
     public static boolean containChinese(String value) {
-        Pattern p = Pattern.compile("[\u4e00-\u9fa5]");
-        Matcher m = p.matcher(value);
-        return m.find();
+        Matcher matcher = CHINESE_PATTERN.matcher(value);
+        return matcher.find();
     }
 
     public static String view(String viewName) {

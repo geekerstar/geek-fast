@@ -5,6 +5,7 @@ import com.geekerstar.common.annotation.Helper;
 import com.geekerstar.common.util.AddressUtil;
 import com.geekerstar.common.util.GeekUtil;
 import com.geekerstar.generator.entity.Column;
+import com.geekerstar.generator.entity.FieldType;
 import com.geekerstar.generator.entity.GeneratorConfig;
 import com.geekerstar.generator.entity.GeneratorConstant;
 import com.google.common.io.Files;
@@ -33,15 +34,15 @@ public class GeneratorHelper {
         String path = getFilePath(configure, configure.getEntityPackage(), suffix, false);
         String templateName = GeneratorConstant.ENTITY_TEMPLATE;
         File entityFile = new File(path);
-        JSONObject data = toJSONObject(configure);
+        JSONObject data = toJsonObject(configure);
         data.put("hasDate", false);
         data.put("hasBigDecimal", false);
         columns.forEach(c -> {
             c.setField(GeekUtil.underscoreToCamel(StringUtils.lowerCase(c.getName())));
-            if (StringUtils.containsAny(c.getType(), "date", "datetime", "timestamp")) {
+            if (StringUtils.containsAny(c.getType(), FieldType.DATE, FieldType.DATETIME, FieldType.TIMESTAMP)) {
                 data.put("hasDate", true);
             }
-            if (StringUtils.containsAny(c.getType(), "decimal", "numeric")) {
+            if (StringUtils.containsAny(c.getType(), FieldType.DECIMAL, FieldType.NUMERIC)) {
                 data.put("hasBigDecimal", true);
             }
         });
@@ -54,7 +55,7 @@ public class GeneratorHelper {
         String path = getFilePath(configure, configure.getMapperPackage(), suffix, false);
         String templateName = GeneratorConstant.MAPPER_TEMPLATE;
         File mapperFile = new File(path);
-        generateFileByTemplate(templateName, mapperFile, toJSONObject(configure));
+        generateFileByTemplate(templateName, mapperFile, toJsonObject(configure));
     }
 
     public void generateServiceFile(List<Column> columns, GeneratorConfig configure) throws Exception {
@@ -62,7 +63,7 @@ public class GeneratorHelper {
         String path = getFilePath(configure, configure.getServicePackage(), suffix, true);
         String templateName = GeneratorConstant.SERVICE_TEMPLATE;
         File serviceFile = new File(path);
-        generateFileByTemplate(templateName, serviceFile, toJSONObject(configure));
+        generateFileByTemplate(templateName, serviceFile, toJsonObject(configure));
     }
 
     public void generateServiceImplFile(List<Column> columns, GeneratorConfig configure) throws Exception {
@@ -70,7 +71,7 @@ public class GeneratorHelper {
         String path = getFilePath(configure, configure.getServiceImplPackage(), suffix, false);
         String templateName = GeneratorConstant.SERVICEIMPL_TEMPLATE;
         File serviceImplFile = new File(path);
-        generateFileByTemplate(templateName, serviceImplFile, toJSONObject(configure));
+        generateFileByTemplate(templateName, serviceImplFile, toJsonObject(configure));
     }
 
     public void generateControllerFile(List<Column> columns, GeneratorConfig configure) throws Exception {
@@ -78,7 +79,7 @@ public class GeneratorHelper {
         String path = getFilePath(configure, configure.getControllerPackage(), suffix, false);
         String templateName = GeneratorConstant.CONTROLLER_TEMPLATE;
         File controllerFile = new File(path);
-        generateFileByTemplate(templateName, controllerFile, toJSONObject(configure));
+        generateFileByTemplate(templateName, controllerFile, toJsonObject(configure));
     }
 
     public void generateMapperXmlFile(List<Column> columns, GeneratorConfig configure) throws Exception {
@@ -86,7 +87,7 @@ public class GeneratorHelper {
         String path = getFilePath(configure, configure.getMapperXmlPackage(), suffix, false);
         String templateName = GeneratorConstant.MAPPERXML_TEMPLATE;
         File mapperXmlFile = new File(path);
-        JSONObject data = toJSONObject(configure);
+        JSONObject data = toJsonObject(configure);
         columns.forEach(c -> c.setField(GeekUtil.underscoreToCamel(StringUtils.lowerCase(c.getName()))));
         data.put("columns", columns);
         generateFileByTemplate(templateName, mapperXmlFile, data);
@@ -120,7 +121,7 @@ public class GeneratorHelper {
         return String.format("/%s/", packageName.contains(".") ? packageName.replaceAll("\\.", "/") : packageName);
     }
 
-    private JSONObject toJSONObject(Object o) {
+    private JSONObject toJsonObject(Object o) {
         return JSONObject.parseObject(JSONObject.toJSON(o).toString());
     }
 

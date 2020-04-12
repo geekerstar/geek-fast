@@ -11,6 +11,7 @@ import com.geekerstar.job.service.IJobService;
 import com.wuwenze.poi.ExcelKit;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.quartz.CronExpression;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +36,10 @@ import java.util.Map;
 @Validated
 @RestController
 @RequestMapping("/job")
+@RequiredArgsConstructor
 public class JobController extends BaseController {
 
-    @Autowired
-    private IJobService jobService;
+    private final IJobService jobService;
 
     @GetMapping
     @RequiresPermissions("job:view")

@@ -9,6 +9,7 @@ import com.geekerstar.generator.entity.Column;
 import com.geekerstar.generator.entity.Table;
 import com.geekerstar.generator.mapper.GeneratorMapper;
 import com.geekerstar.generator.service.IGeneratorService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,10 +21,10 @@ import java.util.List;
  * @description
  */
 @Service
+@RequiredArgsConstructor
 public class GeneratorServiceImpl implements IGeneratorService {
 
-    @Autowired
-    private GeneratorMapper generatorMapper;
+    private final GeneratorMapper generatorMapper;
 
     @Override
     public List<String> getDatabases(String databaseType) {

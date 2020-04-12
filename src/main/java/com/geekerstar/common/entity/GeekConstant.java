@@ -7,21 +7,34 @@ package com.geekerstar.common.entity;
  */
 public class GeekConstant {
 
-    // 注册用户角色ID
+    /**
+     * 注册用户角色ID
+     */
     public static final Long REGISTER_ROLE_ID = 2L;
 
-    // 排序规则：降序
+    /**
+     * 排序规则：降序
+     */
     public static final String ORDER_DESC = "desc";
-    // 排序规则：升序
+
+    /**
+     * 排序规则：升序
+     */
     public static final String ORDER_ASC = "asc";
 
-    // 前端页面路径前缀
+    /**
+     * 前端页面路径前缀
+     */
     public static final String VIEW_PREFIX = "geek/views/";
 
-    // 验证码 Session Key
+    /**
+     * 验证码 Session Key
+     */
     public static final String CODE_PREFIX = "geek_captcha_";
 
-    // 允许下载的文件类型，根据需求自己添加（小写）
+    /**
+     * 允许下载的文件类型，根据需求自己添加（小写）
+     */
     public static final String[] VALID_FILE_TYPE = {"xlsx", "zip"};
 
     /**
@@ -33,4 +46,14 @@ public class GeekConstant {
      * 异步线程池名称，保存操作日志
      */
     public static final String ASYNC_POOL = "geekAsyncThreadPool";
+
+    /**
+     * 开发环境
+     */
+    public static final String DEVELOP = "dev";
+
+    /**
+     * Windows操作系统
+     */
+    public static final String SYSTEM_WINDOWS = "windows";
 }

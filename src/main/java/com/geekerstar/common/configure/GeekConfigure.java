@@ -2,6 +2,7 @@ package com.geekerstar.common.configure;
 
 import com.geekerstar.common.entity.GeekConstant;
 import com.geekerstar.common.xss.XssFilter;
+import com.google.common.collect.Maps;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,7 +45,7 @@ public class GeekConfigure {
         filterRegistrationBean.setOrder(1);
         filterRegistrationBean.setEnabled(true);
         filterRegistrationBean.addUrlPatterns("/*");
-        Map<String, String> initParameters = new HashMap<>();
+        Map<String, String> initParameters = Maps.newHashMapWithExpectedSize(2);
         initParameters.put("excludes", "/favicon.ico,/img/*,/js/*,/css/*");
         initParameters.put("isIncludeRichText", "true");
         filterRegistrationBean.setInitParameters(initParameters);

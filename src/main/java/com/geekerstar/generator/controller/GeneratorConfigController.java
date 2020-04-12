@@ -10,10 +10,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,10 +30,10 @@ import javax.validation.Valid;
 @Slf4j
 @RestController
 @RequestMapping("generatorConfig")
+@RequiredArgsConstructor
 public class GeneratorConfigController extends BaseController {
 
-    @Autowired
-    private IGeneratorConfigService generatorConfigService;
+    private final IGeneratorConfigService generatorConfigService;
 
     @GetMapping
     @RequiresPermissions("generator:configure:view")
@@ -50,8 +50,9 @@ public class GeneratorConfigController extends BaseController {
             @ApiImplicitParam(name = "generatorConfig", value = "配置信息", paramType = "body", required = true, defaultValue = "")
     })
     public GeekResponse updateGeneratorConfig(@Valid GeneratorConfig generatorConfig) {
-        if (StringUtils.isBlank(generatorConfig.getId()))
+        if (StringUtils.isBlank(generatorConfig.getId())) {
             throw new GeekException("配置id不能为空");
+        }
         this.generatorConfigService.updateGeneratorConfig(generatorConfig);
         return new GeekResponse().success();
     }

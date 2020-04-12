@@ -34,16 +34,18 @@ public class SortUtil {
                 && StringUtils.isNotBlank(request.getOrder())
                 && !StringUtils.equalsIgnoreCase(request.getField(), "null")
                 && !StringUtils.equalsIgnoreCase(request.getOrder(), "null")) {
-            if (StringUtils.equals(request.getOrder(), GeekConstant.ORDER_DESC))
+            if (StringUtils.equals(request.getOrder(), GeekConstant.ORDER_DESC)) {
                 page.addOrder(OrderItem.desc(sortField));
-            else
+            } else {
                 page.addOrder(OrderItem.asc(sortField));
+            }
         } else {
             if (StringUtils.isNotBlank(defaultSort)) {
-                if (StringUtils.equals(defaultOrder, GeekConstant.ORDER_DESC))
+                if (StringUtils.equals(defaultOrder, GeekConstant.ORDER_DESC)) {
                     page.addOrder(OrderItem.desc(defaultSort));
-                else
+                } else {
                     page.addOrder(OrderItem.asc(defaultSort));
+                }
             }
         }
     }
@@ -88,16 +90,18 @@ public class SortUtil {
                 && StringUtils.isNotBlank(request.getOrder())
                 && !StringUtils.equalsIgnoreCase(request.getField(), "null")
                 && !StringUtils.equalsIgnoreCase(request.getOrder(), "null")) {
-            if (StringUtils.equals(request.getOrder(), GeekConstant.ORDER_DESC))
+            if (StringUtils.equals(request.getOrder(), GeekConstant.ORDER_DESC)) {
                 wrapper.orderByDesc(sortField);
-            else
+            } else {
                 wrapper.orderByAsc(sortField);
+            }
         } else {
             if (StringUtils.isNotBlank(defaultSort)) {
-                if (StringUtils.equals(defaultOrder, GeekConstant.ORDER_DESC))
+                if (StringUtils.equals(defaultOrder, GeekConstant.ORDER_DESC)) {
                     wrapper.orderByDesc(defaultSort);
-                else
+                } else {
                     wrapper.orderByAsc(defaultSort);
+                }
             }
         }
     }

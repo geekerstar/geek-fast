@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @author geekerstar
@@ -22,7 +23,7 @@ import java.util.concurrent.Future;
 @Slf4j
 public class ScheduleJob extends QuartzJobBean {
 
-    private ExecutorService service = Executors.newSingleThreadExecutor();
+    private ThreadPoolExecutor scheduleJobExecutorService = SpringContextUtil.getBean("scheduleJobExecutorService",ThreadPoolExecutor.class);
 
     @Override
     protected void executeInternal(JobExecutionContext context) {
@@ -45,7 +46,7 @@ public class ScheduleJob extends QuartzJobBean {
             log.info("任务准备执行，任务ID：{}", scheduleJob.getJobId());
             ScheduleRunnable task = new ScheduleRunnable(scheduleJob.getBeanName(), scheduleJob.getMethodName(),
                     scheduleJob.getParams());
-            Future<?> future = service.submit(task);
+            Future<?> future = scheduleJobExecutorService.submit(task);
             future.get();
             long times = System.currentTimeMillis() - startTime;
             jobLog.setTimes(times);

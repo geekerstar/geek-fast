@@ -4,6 +4,7 @@ import com.geekerstar.common.annotation.ControllerEndPoint;
 import com.geekerstar.common.exception.GeekException;
 import com.geekerstar.common.util.GeekUtil;
 import com.geekerstar.monitor.service.ILogService;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -24,10 +25,10 @@ import java.lang.reflect.Method;
  */
 @Aspect
 @Component
-public class ControllerEndpointAspect extends AspectSupport {
+@RequiredArgsConstructor
+public class ControllerEndpointBaseAspect extends BaseAspectSupport {
 
-    @Autowired
-    private ILogService logService;
+    private final ILogService logService;
 
     @Pointcut("@annotation(com.geekerstar.common.annotation.ControllerEndPoint)")
     public void pointcut() {

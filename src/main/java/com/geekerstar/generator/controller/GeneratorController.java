@@ -17,6 +17,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RegExUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -40,15 +41,15 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("generator")
+@RequiredArgsConstructor
 public class GeneratorController extends BaseController {
     private static final String SUFFIX = "_code.zip";
 
-    @Autowired
-    private IGeneratorService generatorService;
-    @Autowired
-    private IGeneratorConfigService generatorConfigService;
-    @Autowired
-    private GeneratorHelper generatorHelper;
+    private final IGeneratorService generatorService;
+
+    private final IGeneratorConfigService generatorConfigService;
+
+    private final GeneratorHelper generatorHelper;
 
     @GetMapping("tables/info")
     @RequiresPermissions("generator:view")

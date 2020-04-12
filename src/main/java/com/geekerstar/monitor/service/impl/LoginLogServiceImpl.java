@@ -8,7 +8,7 @@ import com.geekerstar.common.entity.GeekConstant;
 import com.geekerstar.common.entity.QueryRequest;
 import com.geekerstar.common.util.AddressUtil;
 import com.geekerstar.common.util.HttpContextUtil;
-import com.geekerstar.common.util.IPUtil;
+import com.geekerstar.common.util.IpUtil;
 import com.geekerstar.common.util.SortUtil;
 import com.geekerstar.monitor.entity.LoginLog;
 import com.geekerstar.monitor.mapper.LoginLogMapper;
@@ -61,7 +61,7 @@ public class LoginLogServiceImpl extends ServiceImpl<LoginLogMapper, LoginLog> i
     public void saveLoginLog(LoginLog loginLog) {
         loginLog.setLoginTime(LocalDateTime.now());
         HttpServletRequest request = HttpContextUtil.getHttpServletRequest();
-        String ip = IPUtil.getIpAddr(request);
+        String ip = IpUtil.getIpAddr(request);
         loginLog.setIp(ip);
         loginLog.setLocation(AddressUtil.getCityInfo(ip));
         this.save(loginLog);

@@ -85,32 +85,31 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = LimitAccessException.class)
     public GeekResponse handleLimitAccessException(LimitAccessException e) {
-        log.debug("LimitAccessException", e);
+        log.error("LimitAccessException", e);
         return new GeekResponse().code(HttpStatus.TOO_MANY_REQUESTS).message(e.getMessage());
     }
 
     @ExceptionHandler(value = UnauthorizedException.class)
     public GeekResponse handleUnauthorizedException(UnauthorizedException e) {
-        log.debug("UnauthorizedException", e);
+        log.error("UnauthorizedException", e);
         return new GeekResponse().code(HttpStatus.FORBIDDEN).message(e.getMessage());
     }
 
     @ExceptionHandler(value = AuthenticationException.class)
     public GeekResponse handleAuthenticationException(AuthenticationException e) {
-        log.debug("AuthenticationException", e);
+        log.error("AuthenticationException", e);
         return new GeekResponse().code(HttpStatus.INTERNAL_SERVER_ERROR).message(e.getMessage());
     }
 
     @ExceptionHandler(value = AuthorizationException.class)
     public GeekResponse handleAuthorizationException(AuthorizationException e) {
-        log.debug("AuthorizationException", e);
+        log.error("AuthorizationException", e);
         return new GeekResponse().code(HttpStatus.UNAUTHORIZED).message(e.getMessage());
     }
 
-
     @ExceptionHandler(value = ExpiredSessionException.class)
     public GeekResponse handleExpiredSessionException(ExpiredSessionException e) {
-        log.debug("ExpiredSessionException", e);
+        log.error("ExpiredSessionException", e);
         return new GeekResponse().code(HttpStatus.UNAUTHORIZED).message(e.getMessage());
     }
 

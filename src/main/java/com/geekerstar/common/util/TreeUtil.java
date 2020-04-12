@@ -4,6 +4,7 @@ import com.geekerstar.common.entity.DeptTree;
 import com.geekerstar.common.entity.MenuTree;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,9 +17,7 @@ import java.util.Map;
  */
 public class TreeUtil {
 
-    protected TreeUtil() {
-
-    }
+    private static final String TOP_NODE_ID = "0";
 
     public static <T> MenuTree<T> buildMenuTree(List<MenuTree<T>> nodes) {
         if (nodes == null) {
@@ -27,7 +26,7 @@ public class TreeUtil {
         List<MenuTree<T>> topNodes = Lists.newArrayList();
         nodes.forEach(children -> {
             String pid = children.getParentId();
-            if (pid == null || "0".equals(pid)) {
+            if (pid == null || TOP_NODE_ID.equals(pid)) {
                 topNodes.add(children);
                 return;
             }
@@ -43,8 +42,8 @@ public class TreeUtil {
         });
 
         MenuTree<T> root = new MenuTree<>();
-        root.setId("0");
-        root.setParentId("");
+        root.setId(TOP_NODE_ID);
+        root.setParentId(StringUtils.EMPTY);
         root.setHasParent(false);
         root.setHasChild(true);
         root.setChecked(true);
@@ -61,7 +60,7 @@ public class TreeUtil {
         List<DeptTree<T>> result = Lists.newArrayList();
         nodes.forEach(children -> {
             String pid = children.getParentId();
-            if (pid == null || "0".equals(pid)) {
+            if (pid == null || TOP_NODE_ID.equals(pid)) {
                 result.add(children);
                 return;
             }

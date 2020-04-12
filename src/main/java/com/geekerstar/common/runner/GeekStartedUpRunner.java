@@ -1,7 +1,9 @@
 package com.geekerstar.common.runner;
 
+import com.geekerstar.common.entity.GeekConstant;
 import com.geekerstar.common.properties.GeekProperties;
 import com.geekerstar.common.service.RedisService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +22,15 @@ import java.net.InetAddress;
  */
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class GeekStartedUpRunner implements ApplicationRunner {
 
-    @Autowired
-    private ConfigurableApplicationContext context;
-    @Autowired
-    private GeekProperties geekProperties;
-    @Autowired
-    private RedisService redisService;
+
+    private final ConfigurableApplicationContext context;
+
+    private final GeekProperties geekProperties;
+
+    private final RedisService redisService;
 
     @Value("${server.port:8080}")
     private String port;
@@ -56,8 +59,9 @@ public class GeekStartedUpRunner implements ApplicationRunner {
             String loginUrl = geekProperties.getShiro().getLoginUrl();
 //            if (StringUtils.isNotBlank(contextPath))
 //                url += contextPath;
-            if (StringUtils.isNotBlank(loginUrl))
+            if (StringUtils.isNotBlank(loginUrl)) {
                 url += loginUrl;
+            }
             log.info(" __    ___   _      ___   _     ____ _____  ____ ");
             log.info("/ /`  / / \\ | |\\/| | |_) | |   | |_   | |  | |_  ");
             log.info("\\_\\_, \\_\\_/ |_|  | |_|   |_|__ |_|__  |_|  |_|__ ");
@@ -65,10 +69,10 @@ public class GeekStartedUpRunner implements ApplicationRunner {
             log.info("Geek-Fast 启动完毕，地址：{}", url);
 
             boolean auto = geekProperties.isAutoOpenBrowser();
-            if (auto && StringUtils.equalsIgnoreCase(active, "dev")) {
+            if (auto && StringUtils.equalsIgnoreCase(active, GeekConstant.DEVELOP)) {
                 String os = System.getProperty("os.name");
                 // 默认为 windows时才自动打开页面
-                if (StringUtils.containsIgnoreCase(os, "windows")) {
+                if (StringUtils.containsIgnoreCase(os, GeekConstant.SYSTEM_WINDOWS)) {
                     //使用默认浏览器打开系统登录页
                     Runtime.getRuntime().exec("cmd  /c  start " + url);
                 }

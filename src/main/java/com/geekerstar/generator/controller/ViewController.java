@@ -4,6 +4,7 @@ import com.geekerstar.common.entity.GeekConstant;
 import com.geekerstar.common.util.GeekUtil;
 import com.geekerstar.generator.entity.GeneratorConfig;
 import com.geekerstar.generator.service.IGeneratorConfigService;
+import lombok.RequiredArgsConstructor;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,10 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller("generatorViews")
 @RequestMapping(GeekConstant.VIEW_PREFIX + "generator")
+@RequiredArgsConstructor
 public class ViewController {
 
-    @Autowired
-    private IGeneratorConfigService generatorConfigService;
+    private final IGeneratorConfigService generatorConfigService;
 
     @GetMapping("generator")
     @RequiresPermissions("generator:view")

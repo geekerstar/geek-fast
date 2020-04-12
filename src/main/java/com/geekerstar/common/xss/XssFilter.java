@@ -1,5 +1,6 @@
 package com.geekerstar.common.xss;
 
+import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -25,7 +26,7 @@ public class XssFilter implements Filter {
      */
     private boolean flag = false;
 
-    private List<String> excludes = new ArrayList<>();
+    private List<String> excludes = Lists.newArrayList();
 
     @Override
     public void init(FilterConfig filterConfig) {
@@ -45,7 +46,7 @@ public class XssFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
-        if (handleExcludeURL(req)) {
+        if (handleExcludeUrl(req)) {
             chain.doFilter(request, response);
             return;
         }
@@ -58,7 +59,7 @@ public class XssFilter implements Filter {
         // do nothing
     }
 
-    private boolean handleExcludeURL(HttpServletRequest request) {
+    private boolean handleExcludeUrl(HttpServletRequest request) {
         if (excludes == null || excludes.isEmpty()) {
             return false;
         }

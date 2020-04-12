@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
  * date: 2019/12/15 20:09
  * description: 切面工具
  */
-public abstract class AspectSupport {
+public abstract class BaseAspectSupport {
 
     Method resolveMethod(ProceedingJoinPoint point) {
         MethodSignature signature = (MethodSignature) point.getSignature();

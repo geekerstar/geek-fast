@@ -2,6 +2,7 @@ package com.geekerstar.common.authentication;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.geekerstar.common.properties.GeekProperties;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SecurityManager;
@@ -15,7 +16,6 @@ import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.crazycake.shiro.RedisCacheManager;
 import org.crazycake.shiro.RedisManager;
 import org.crazycake.shiro.RedisSessionDAO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,10 +33,10 @@ import java.util.LinkedHashMap;
  * description: shiro配置类
  */
 @Configuration
+@RequiredArgsConstructor
 public class ShiroConfig {
 
-    @Autowired
-    private GeekProperties geekProperties;
+    private final GeekProperties geekProperties;
 
     @Value("${spring.redis.host}")
     private String host;
@@ -57,8 +57,9 @@ public class ShiroConfig {
     private RedisManager redisManager() {
         RedisManager redisManager = new RedisManager();
         redisManager.setHost(host + ":" + port);
-        if (StringUtils.isNotBlank(password))
+        if (StringUtils.isNotBlank(password)) {
             redisManager.setPassword(password);
+        }
         redisManager.setTimeout(timeout);
         redisManager.setDatabase(database);
         return redisManager;

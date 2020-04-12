@@ -6,6 +6,7 @@ import com.geekerstar.system.entity.User;
 import com.geekerstar.system.service.IMenuService;
 import com.geekerstar.system.service.IRoleService;
 import com.geekerstar.system.service.IUserService;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -14,6 +15,7 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -26,13 +28,29 @@ import java.util.stream.Collectors;
  * description: 自定义实现 ShiroRealm，包含认证和授权两大模块
  */
 @Component
+@RequiredArgsConstructor
 public class ShiroRealm extends AuthorizingRealm {
-    @Autowired
+
     private IUserService userService;
-    @Autowired
+
     private IRoleService roleService;
-    @Autowired
+
     private IMenuService menuService;
+
+    @Autowired
+    public void setUserService(@Qualifier("IUserService") IUserService userService) {
+        this.userService = userService;
+    }
+
+    @Autowired
+    public void setRoleService(@Qualifier("IRoleService") IRoleService roleService) {
+        this.roleService = roleService;
+    }
+
+    @Autowired
+    public void setMenuService(@Qualifier("IMenuService") IMenuService menuService) {
+        this.menuService = menuService;
+    }
 
     /**
      * 授权模块，获取用户角色和权限
@@ -75,12 +93,15 @@ public class ShiroRealm extends AuthorizingRealm {
         // 通过用户名到数据库查询用户信息
         User user = this.userService.findByName(userName);
 
-        if (user == null)
+        if (user == null) {
             throw new UnknownAccountException("账号未注册！");
-        if (!StringUtils.equals(password, user.getPassword()))
+        }
+        if (!StringUtils.equals(password, user.getPassword())) {
             throw new IncorrectCredentialsException("用户名或密码错误！");
-        if (User.STATUS_LOCK.equals(user.getStatus()))
+        }
+        if (User.STATUS_LOCK.equals(user.getStatus())) {
             throw new LockedAccountException("账号已被锁定,请联系管理员！");
+        }
         return new SimpleAuthenticationInfo(user, password, getName());
     }
 

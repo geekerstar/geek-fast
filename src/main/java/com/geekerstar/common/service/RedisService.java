@@ -1,6 +1,6 @@
 package com.geekerstar.common.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +16,10 @@ import java.util.concurrent.TimeUnit;
  * @description
  */
 @Service
+@RequiredArgsConstructor
 public class RedisService {
-    @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+
+    private final RedisTemplate<String, Object> redisTemplate;
 
     /**
      * 指定缓存失效时间
@@ -358,8 +359,9 @@ public class RedisService {
     public Long sSetAndTime(String key, Long time, Object... values) {
         try {
             Long count = redisTemplate.opsForSet().add(key, values);
-            if (time > 0)
+            if (time > 0) {
                 expire(key, time);
+            }
             return count;
         } catch (Exception e) {
             e.printStackTrace();

@@ -5,6 +5,7 @@ import com.geekerstar.common.util.GeekUtil;
 import com.geekerstar.job.entity.Job;
 import com.geekerstar.job.service.IJobService;
 import io.swagger.annotations.Api;
+import lombok.RequiredArgsConstructor;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,10 +24,10 @@ import javax.validation.constraints.NotBlank;
 @Api(tags = "任务调度视图")
 @Controller("jobView")
 @RequestMapping(GeekConstant.VIEW_PREFIX + "job")
+@RequiredArgsConstructor
 public class ViewController {
 
-    @Autowired
-    private IJobService jobService;
+    private final IJobService jobService;
 
     @GetMapping("job")
     @RequiresPermissions("job:view")

@@ -4,8 +4,9 @@ import com.geekerstar.common.annotation.Limit;
 import com.geekerstar.common.entity.LimitType;
 import com.geekerstar.common.exception.LimitAccessException;
 import com.geekerstar.common.util.HttpContextUtil;
-import com.geekerstar.common.util.IPUtil;
+import com.geekerstar.common.util.IpUtil;
 import com.google.common.collect.ImmutableList;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -29,14 +30,10 @@ import java.lang.reflect.Method;
 @Slf4j
 @Aspect
 @Component
-public class LimitAspect extends AspectSupport {
+@RequiredArgsConstructor
+public class LimitBaseAspect extends BaseAspectSupport {
 
     private final RedisTemplate<String, Object> redisTemplate;
-
-    @Autowired
-    public LimitAspect(RedisTemplate<String, Object> limitRedisTemplate) {
-        this.redisTemplate = limitRedisTemplate;
-    }
 
     @Pointcut("@annotation(com.geekerstar.common.annotation.Limit)")
     public void pointcut() {
@@ -50,7 +47,7 @@ public class LimitAspect extends AspectSupport {
         LimitType limitType = limitAnnotation.limitType();
         String name = limitAnnotation.name();
         String key;
-        String ip = IPUtil.getIpAddr(request);
+        String ip = IpUtil.getIpAddr(request);
         int limitPeriod = limitAnnotation.period();
         int limitCount = limitAnnotation.count();
         switch (limitType) {

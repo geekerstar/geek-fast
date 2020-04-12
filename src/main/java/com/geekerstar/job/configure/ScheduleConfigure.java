@@ -1,6 +1,7 @@
 package com.geekerstar.job.configure;
 
 import com.baomidou.dynamic.datasource.DynamicRoutingDataSource;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,9 +16,10 @@ import java.util.Properties;
  * @description
  */
 @Configuration
+@RequiredArgsConstructor
 public class ScheduleConfigure {
-    @Autowired
-    private DynamicRoutingDataSource dynamicRoutingDataSource;
+
+    private final DynamicRoutingDataSource dynamicRoutingDataSource;
 
     @Bean
     public SchedulerFactoryBean schedulerFactoryBean() {

@@ -34,9 +34,14 @@ public class JobLog implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    // 任务执行成功
+    /**
+     * 任务执行成功
+     */
     public static final String JOB_SUCCESS = "0";
-    // 任务执行失败
+
+    /**
+     * 任务执行失败
+     */
     public static final String JOB_FAIL = "1";
 
     @ApiModelProperty(value = "任务日志id")
