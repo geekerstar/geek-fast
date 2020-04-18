@@ -7,8 +7,8 @@ import com.geekerstar.monitor.entity.ServerInfo;
 import com.geekerstar.monitor.entity.TomcatInfo;
 import com.geekerstar.monitor.helper.GeekActuatorHelper;
 import io.swagger.annotations.Api;
+import lombok.RequiredArgsConstructor;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,9 +27,10 @@ import static com.geekerstar.monitor.endpoint.GeekMetricsEndpoint.GeekMetricResp
 @Api(tags = "监控视图")
 @Controller("monitorView")
 @RequestMapping(GeekConstant.VIEW_PREFIX + "monitor")
+@RequiredArgsConstructor
 public class ViewController {
-    @Autowired
-    private GeekActuatorHelper actuatorHelper;
+
+    private final GeekActuatorHelper actuatorHelper;
 
     @GetMapping("online")
     @RequiresPermissions("online:view")

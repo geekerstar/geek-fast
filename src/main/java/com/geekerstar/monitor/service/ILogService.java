@@ -7,7 +7,6 @@ import com.geekerstar.common.entity.QueryRequest;
 import com.geekerstar.monitor.entity.Log;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Method;
 
@@ -17,7 +16,6 @@ import java.lang.reflect.Method;
  * @author Geekerstar
  * @since 2020-02-01
  */
-@Service
 public interface ILogService extends IService<Log> {
 
     /**

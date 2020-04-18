@@ -25,7 +25,7 @@ public interface WebSSHService {
      * @param buffer
      * @param webSocketSession
      */
-    void receiveHandler(String buffer,WebSocketSession webSocketSession);
+    void receiveHandler(String buffer, WebSocketSession webSocketSession);
 
 
     /**
@@ -34,7 +34,7 @@ public interface WebSSHService {
      * @param webSocketSession
      * @param buffer
      */
-    void sendMessage(WebSocketSession webSocketSession,byte[] buffer) throws IOException;
+    void sendMessage(WebSocketSession webSocketSession, byte[] buffer) throws IOException;
 
     /**
      * 关闭连接

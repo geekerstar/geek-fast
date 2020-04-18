@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.geekerstar.common.entity.QueryRequest;
 import com.geekerstar.generator.entity.Column;
 import com.geekerstar.generator.entity.Table;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -13,7 +12,6 @@ import java.util.List;
  * @date 2020/2/2 13:12
  * @description
  */
-@Service
 public interface IGeneratorService {
 
     /**

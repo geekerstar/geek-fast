@@ -19,13 +19,13 @@ public class UploadClient {
         //文件
         paramMap.put("file", file);
         //输出
-        paramMap.put("output","json");
+        paramMap.put("output", "json");
         //自定义路径
-        paramMap.put("path","image");
+        paramMap.put("path", "image");
         //场景
-        paramMap.put("scene","image");
+        paramMap.put("scene", "image");
         //上传
-        String result= HttpUtil.post("http://39.107.25.229:8080/group1/upload", paramMap);
+        String result = HttpUtil.post("http://39.107.25.229:8080/group1/upload", paramMap);
         //输出json结果
         System.out.println(result);
     }

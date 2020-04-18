@@ -8,7 +8,7 @@ import com.geekerstar.common.properties.GeekProperties;
 import com.geekerstar.other.entity.Eximport;
 import com.geekerstar.other.mapper.EximportMapper;
 import com.geekerstar.other.service.IEximportService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,11 +24,11 @@ import java.util.List;
  * @since 2020-02-02
  */
 @Service
-@Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+@RequiredArgsConstructor
 public class EximportServiceImpl extends ServiceImpl<EximportMapper, Eximport> implements IEximportService {
 
-    @Autowired
-    private GeekProperties properties;
+    private final GeekProperties properties;
 
     @Override
     public IPage<Eximport> findEximports(QueryRequest request, Eximport eximport) {
@@ -37,7 +37,7 @@ public class EximportServiceImpl extends ServiceImpl<EximportMapper, Eximport> i
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void batchInsert(List<Eximport> list) {
         saveBatch(list, properties.getMaxBatchInsertNum());
     }

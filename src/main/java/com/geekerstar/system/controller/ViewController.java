@@ -7,10 +7,10 @@ import com.geekerstar.common.util.GeekUtil;
 import com.geekerstar.system.entity.User;
 import com.geekerstar.system.service.IUserService;
 import io.swagger.annotations.Api;
+import lombok.RequiredArgsConstructor;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.session.ExpiredSessionException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,12 +28,12 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Api(tags = "系统管理视图")
 @Controller("systemView")
+@RequiredArgsConstructor
 public class ViewController extends BaseController {
-    @Autowired
-    private IUserService userService;
 
-    @Autowired
-    private ShiroHelper shiroHelper;
+    private final IUserService userService;
+
+    private final ShiroHelper shiroHelper;
 
     @GetMapping("login")
     @ResponseBody
@@ -164,16 +164,15 @@ public class ViewController extends BaseController {
         model.addAttribute("user", user);
         if (transform) {
             String ssex = user.getSex();
-            if (User.SEX_MALE.equals(ssex)){
+            if (User.SEX_MALE.equals(ssex)) {
                 user.setSex("男");
-            }
-            else if (User.SEX_FEMALE.equals(ssex)){
+            } else if (User.SEX_FEMALE.equals(ssex)) {
                 user.setSex("女");
             } else {
                 user.setSex("保密");
             }
         }
-        if (user.getLastLoginTime() != null){
+        if (user.getLastLoginTime() != null) {
             model.addAttribute("lastLoginTime", user.getLastLoginTime());
         }
     }

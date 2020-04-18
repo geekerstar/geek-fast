@@ -29,7 +29,7 @@ import java.util.List;
  * @since 2020-01-31
  */
 @Service
-@Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements IDeptService {
 
     @Override
@@ -42,12 +42,10 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
     @Override
     public List<DeptTree<Dept>> findDepts(Dept dept) {
         QueryWrapper<Dept> queryWrapper = new QueryWrapper<>();
-
         if (StringUtils.isNotBlank(dept.getDeptName())) {
             queryWrapper.lambda().eq(Dept::getDeptName, dept.getDeptName());
         }
         queryWrapper.lambda().orderByAsc(Dept::getOrderNum);
-
         List<Dept> deptList = this.baseMapper.selectList(queryWrapper);
         List<DeptTree<Dept>> treeList = this.convertDepts(deptList);
         return TreeUtil.buildDeptTree(treeList);
@@ -56,7 +54,6 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
     @Override
     public List<Dept> findDepts(Dept dept, QueryRequest request) {
         QueryWrapper<Dept> queryWrapper = new QueryWrapper<>();
-
         if (StringUtils.isNotBlank(dept.getDeptName())) {
             queryWrapper.lambda().eq(Dept::getDeptName, dept.getDeptName());
         }
@@ -65,7 +62,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void createDept(Dept dept) {
         Long parentId = dept.getParentId();
         if (parentId == null) {
@@ -76,13 +73,13 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void removeDepts(String[] ids) {
         this.delete(Arrays.asList(ids));
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void updateDept(Dept dept) {
         dept.setModifyTime(LocalDateTime.now());
         this.baseMapper.updateById(dept);

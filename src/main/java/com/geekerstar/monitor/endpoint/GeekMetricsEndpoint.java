@@ -94,6 +94,7 @@ public class GeekMetricsEndpoint {
     }
 
     private void mergeMeasurements(Map<Statistic, Double> samples, Meter meter) {
+        // TODO
         meter.measure().forEach((measurement) -> {
             Double var10000 = samples.merge(measurement.getStatistic(), measurement.getValue(), this.mergeFunction(measurement.getStatistic()));
         });

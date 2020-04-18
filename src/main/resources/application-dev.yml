@@ -50,13 +50,13 @@ spring:
 
       # 是否开启 SQL日志输出，生产环境建议关闭，有性能损耗
       p6spy: true
-#      hikari:
-#        connection-timeout: 30000
-#        max-lifetime: 1800000
-#        max-pool-size: 15
-#        min-idle: 5
-#        connection-test-query: select 1
-#        pool-name: GeekHikariCP
+      #      hikari:
+      #        connection-timeout: 30000
+      #        max-lifetime: 1800000
+      #        max-pool-size: 15
+      #        min-idle: 5
+      #        connection-test-query: select 1
+      #        pool-name: GeekHikariCP
       # 配置默认数据源
       primary: base
       datasource:

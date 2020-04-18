@@ -8,16 +8,16 @@ import com.geekerstar.common.controller.BaseController;
 import com.geekerstar.common.entity.GeekResponse;
 import com.geekerstar.common.entity.QueryRequest;
 import com.geekerstar.common.exception.GeekException;
-import com.geekerstar.common.util.MD5Util;
+import com.geekerstar.common.util.Md5Util;
 import com.geekerstar.system.entity.User;
 import com.geekerstar.system.service.IUserService;
 import com.wuwenze.poi.ExcelKit;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -36,10 +36,10 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("/user")
+@RequiredArgsConstructor
 public class UserController extends BaseController {
 
-    @Autowired
-    private IUserService userService;
+    private final IUserService userService;
 
     @GetMapping("{usernmae}")
     @Weblog(description = "获取用户信息")
@@ -118,7 +118,7 @@ public class UserController extends BaseController {
             @NotBlank(message = "{required}") String oldPassword,
             @NotBlank(message = "{required}") String newPassword) {
         User user = getCurrentUser();
-        if (!StringUtils.equals(user.getPassword(), MD5Util.encrypt(user.getUsername(), oldPassword))) {
+        if (!StringUtils.equals(user.getPassword(), Md5Util.encrypt(user.getUsername(), oldPassword))) {
             throw new GeekException("原密码不正确");
         }
         userService.updatePassword(user.getUsername(), newPassword);

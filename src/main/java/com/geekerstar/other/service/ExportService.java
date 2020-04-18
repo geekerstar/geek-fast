@@ -1,7 +1,5 @@
 package com.geekerstar.other.service;
 
-import org.springframework.stereotype.Service;
-
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
@@ -10,7 +8,6 @@ import java.util.Map;
  * @date 2020/2/19 13:54
  * @description 导出工具
  */
-@Service
 public interface ExportService {
 
     void exportWord(Map<String, Object> data, String templateName, String newFileName, HttpServletResponse response);

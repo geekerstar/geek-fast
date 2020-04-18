@@ -4,7 +4,7 @@ import com.geekerstar.common.controller.BaseController;
 import com.geekerstar.common.entity.GeekResponse;
 import com.geekerstar.common.exception.GeekException;
 import com.geekerstar.common.service.ValidateCodeService;
-import com.geekerstar.common.util.MD5Util;
+import com.geekerstar.common.util.Md5Util;
 import com.geekerstar.monitor.entity.LoginLog;
 import com.geekerstar.monitor.service.ILoginLogService;
 import com.geekerstar.system.entity.User;
@@ -14,8 +14,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,16 +38,14 @@ import java.util.Map;
 @Api(tags = "登录模块")
 @Validated
 @RestController
+@RequiredArgsConstructor
 public class LoginController extends BaseController {
 
-    @Autowired
-    private IUserService userService;
+    private final IUserService userService;
 
-    @Autowired
-    private ValidateCodeService validateCodeService;
+    private final ValidateCodeService validateCodeService;
 
-    @Autowired
-    private ILoginLogService loginLogService;
+    private final ILoginLogService loginLogService;
 
     @PostMapping("login")
 //    @Weblog(description = "登录")
@@ -65,7 +63,7 @@ public class LoginController extends BaseController {
         HttpSession session = request.getSession();
         // 检查验证码
         validateCodeService.check(session.getId(), verifyCode);
-        password = MD5Util.encrypt(username.toLowerCase(), password);
+        password = Md5Util.encrypt(username.toLowerCase(), password);
         UsernamePasswordToken token = new UsernamePasswordToken(username, password, rememberMe);
         super.login(token);
         // 保存登录日志
@@ -100,7 +98,7 @@ public class LoginController extends BaseController {
     public GeekResponse index(@NotBlank(message = "{required}") @PathVariable String username) {
         // 更新登录时间
         this.userService.updateLoginTime(username);
-        Map<String, Object> data = Maps.newHashMap();
+        Map<String, Object> data = Maps.newHashMapWithExpectedSize(5);
         // 获取系统访问记录
         Long totalVisitCount = this.loginLogService.findTotalVisitCount();
         data.put("totalVisitCount", totalVisitCount);

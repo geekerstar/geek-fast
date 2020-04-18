@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.geekerstar.common.entity.QueryRequest;
 import com.geekerstar.system.entity.Role;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -14,7 +13,6 @@ import java.util.List;
  * @author Geekerstar
  * @since 2020-01-31
  */
-@Service
 public interface IRoleService extends IService<Role> {
 
     /**

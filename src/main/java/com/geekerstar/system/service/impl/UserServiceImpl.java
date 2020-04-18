@@ -11,7 +11,7 @@ import com.geekerstar.common.entity.GeekConstant;
 import com.geekerstar.common.entity.QueryRequest;
 import com.geekerstar.common.exception.GeekException;
 import com.geekerstar.common.util.GeekUtil;
-import com.geekerstar.common.util.MD5Util;
+import com.geekerstar.common.util.Md5Util;
 import com.geekerstar.common.util.SortUtil;
 import com.geekerstar.system.entity.User;
 import com.geekerstar.system.entity.UserRole;
@@ -19,8 +19,8 @@ import com.geekerstar.system.mapper.UserMapper;
 import com.geekerstar.system.service.IUserRoleService;
 import com.geekerstar.system.service.IUserService;
 import com.google.common.collect.Lists;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,14 +36,13 @@ import java.util.List;
  * @since 2020-01-31
  */
 @Service
-@Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+@RequiredArgsConstructor
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
-    @Autowired
-    private IUserRoleService userRoleService;
+    private final IUserRoleService userRoleService;
 
-    @Autowired
-    private ShiroRealm shiroRealm;
+    private final ShiroRealm shiroRealm;
 
     @Override
     public User findUserDetailList(String username) {
@@ -66,14 +65,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void createUser(User user) {
         user.setCreateTime(LocalDateTime.now());
         user.setStatus(User.STATUS_VALID);
         user.setAvatar(User.DEFAULT_AVATAR);
         user.setTheme(User.THEME_BLACK);
         user.setIsTab(User.TAB_OPEN);
-        user.setPassword(MD5Util.encrypt(user.getUsername(), User.DEFAULT_PASSWORD));
+        user.setPassword(Md5Util.encrypt(user.getUsername(), User.DEFAULT_PASSWORD));
         save(user);
         // 保存用户角色
         String[] roles = user.getRoleId().split(StringPool.COMMA);
@@ -81,7 +80,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void deleteUsers(String[] ids) {
         List<String> list = Arrays.asList(ids);
         // 删除用户
@@ -91,7 +90,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void updateUser(User user) {
         String username = user.getUsername();
         // 更新用户
@@ -103,7 +102,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         this.userRoleService.remove(new LambdaQueryWrapper<UserRole>().eq(UserRole::getUserId, user.getUserId()));
         String[] roles = user.getRoleId().split(StringPool.COMMA);
         setUserRoles(user, roles);
-
         User currentUser = GeekUtil.getCurrentUser();
         if (StringUtils.equalsIgnoreCase(currentUser.getUsername(), username)) {
             shiroRealm.clearCache();
@@ -111,11 +109,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void resetPassword(String[] usernames) {
         Arrays.stream(usernames).forEach(username -> {
             User user = new User();
-            user.setPassword(MD5Util.encrypt(username, User.DEFAULT_PASSWORD));
+            user.setPassword(Md5Util.encrypt(username, User.DEFAULT_PASSWORD));
             this.baseMapper.update(user, new LambdaQueryWrapper<User>().eq(User::getUsername, username));
         });
     }
@@ -123,7 +121,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public void updatePassword(String username, String password) {
         User user = new User();
-        user.setPassword(MD5Util.encrypt(username, password));
+        user.setPassword(Md5Util.encrypt(username, password));
         user.setModifyTime(LocalDateTime.now());
         this.baseMapper.update(user, new LambdaQueryWrapper<User>().eq(User::getUsername, username));
     }
@@ -160,7 +158,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public void regist(String username, String password) {
         User user = new User();
-        user.setPassword(MD5Util.encrypt(username, password));
+        user.setPassword(Md5Util.encrypt(username, password));
         user.setUsername(username);
         user.setCreateTime(LocalDateTime.now());
         user.setStatus(User.STATUS_VALID);
@@ -170,7 +168,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         user.setIsTab(User.TAB_OPEN);
         user.setDescription("注册用户");
         this.save(user);
-
         UserRole ur = new UserRole();
         ur.setUserId(user.getUserId());
         ur.setRoleId(GeekConstant.REGISTER_ROLE_ID);

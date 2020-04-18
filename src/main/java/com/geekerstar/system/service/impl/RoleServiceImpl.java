@@ -16,8 +16,8 @@ import com.geekerstar.system.service.IRoleMenuService;
 import com.geekerstar.system.service.IRoleService;
 import com.geekerstar.system.service.IUserRoleService;
 import com.google.common.collect.Lists;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,17 +33,15 @@ import java.util.List;
  * @since 2020-01-31
  */
 @Service
-@Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+@RequiredArgsConstructor
 public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IRoleService {
 
-    @Autowired
-    private IRoleMenuService roleMenuService;
+    private final IRoleMenuService roleMenuService;
 
-    @Autowired
-    private IUserRoleService userRoleService;
+    private final IUserRoleService userRoleService;
 
-    @Autowired
-    private ShiroRealm shiroRealm;
+    private final ShiroRealm shiroRealm;
 
     @Override
     public List<Role> findUserRole(String username) {
@@ -72,7 +70,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void createRole(Role role) {
         role.setCreateTime(LocalDateTime.now());
         this.baseMapper.insert(role);
@@ -80,7 +78,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void updateRole(Role role) {
         role.setModifyTime(LocalDateTime.now());
         this.updateById(role);
@@ -88,16 +86,14 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
         roleIdList.add(String.valueOf(role.getRoleId()));
         this.roleMenuService.deleteRoleMenusByRoleId(roleIdList);
         saveRoleMenus(role);
-
         shiroRealm.clearCache();
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void deleteRoles(String roleIds) {
         List<String> list = Arrays.asList(roleIds.split(StringPool.COMMA));
         this.baseMapper.delete(new QueryWrapper<Role>().lambda().in(Role::getRoleId, list));
-
         this.roleMenuService.deleteRoleMenusByRoleId(list);
         this.userRoleService.deleteUserRolesByRoleId(list);
     }

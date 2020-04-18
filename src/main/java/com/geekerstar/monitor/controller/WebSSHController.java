@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class WebSSHController {
     @RequestMapping("/webssh")
-    public String webssh(){
+    public String webssh() {
         return "webssh";
     }
 }

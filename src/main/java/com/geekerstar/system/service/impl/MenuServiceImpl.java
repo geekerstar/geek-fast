@@ -13,8 +13,8 @@ import com.geekerstar.system.mapper.MenuMapper;
 import com.geekerstar.system.service.IMenuService;
 import com.geekerstar.system.service.IRoleMenuService;
 import com.google.common.collect.Lists;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,15 +30,13 @@ import java.util.List;
  * @since 2020-01-31
  */
 @Service
-@Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+@RequiredArgsConstructor
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IMenuService {
 
+    private final IRoleMenuService roleMenuService;
 
-    @Autowired
-    private IRoleMenuService roleMenuService;
-
-    @Autowired
-    private ShiroRealm shiroRealm;
+    private final ShiroRealm shiroRealm;
 
     @Override
     public List<Menu> findUserPermissions(String username) {
@@ -76,7 +74,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void createMenu(Menu menu) {
         menu.setCreateTime(LocalDateTime.now());
         this.setMenu(menu);
@@ -85,7 +83,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void updateMenu(Menu menu) {
         menu.setModifyTime(LocalDateTime.now());
         this.setMenu(menu);
@@ -95,7 +93,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void deleteMeuns(String menuIds) {
         String[] menuIdsArray = menuIds.split(StringPool.COMMA);
         this.delete(Arrays.asList(menuIdsArray));

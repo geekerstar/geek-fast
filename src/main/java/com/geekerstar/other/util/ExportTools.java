@@ -120,15 +120,15 @@ public class ExportTools {
             File file = new File(rootPath);
             rootPath = file.getParent();
         }
-       if (systemName.contains("Mac OS X")){
-           rootPath +=File.separator+"fsga2-project" + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "freemarker" + File.separator;
-       } else {
-           rootPath += File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "freemarker" + File.separator;
-       }
+        if (systemName.contains("Mac OS X")) {
+            rootPath += File.separator + "fsga2-project" + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "freemarker" + File.separator;
+        } else {
+            rootPath += File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "freemarker" + File.separator;
+        }
         if (fileName == null) {
             return rootPath;
         }
-        return  rootPath + fileName;
+        return rootPath + fileName;
     }
 
 

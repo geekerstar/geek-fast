@@ -6,13 +6,13 @@ import com.geekerstar.monitor.entity.ActiveUser;
 import com.geekerstar.monitor.service.ISessionService;
 import com.geekerstar.system.entity.User;
 import com.google.common.collect.Lists;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.eis.SessionDAO;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.support.DefaultSubjectContext;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -24,9 +24,10 @@ import java.util.List;
  * @description
  */
 @Service
+@RequiredArgsConstructor
 public class SessionServiceImpl implements ISessionService {
-    @Autowired
-    private SessionDAO sessionDAO;
+
+    private final SessionDAO sessionDAO;
 
     @Override
     public List<ActiveUser> list(String username) {

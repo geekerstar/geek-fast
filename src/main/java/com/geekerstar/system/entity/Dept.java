@@ -34,6 +34,8 @@ public class Dept implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public static final Long TOP_NODE = 0L;
+
     @ApiModelProperty(value = "部门id")
     @TableId(value = "dept_id", type = IdType.AUTO)
     private Long deptId;

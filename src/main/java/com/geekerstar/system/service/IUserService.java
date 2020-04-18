@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.geekerstar.common.entity.QueryRequest;
 import com.geekerstar.system.entity.User;
-import org.springframework.stereotype.Service;
 
 /**
  * 用户表 IUserService 服务类
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
  * @author Geekerstar
  * @since 2020-01-31
  */
-@Service
 public interface IUserService extends IService<User> {
 
     /**

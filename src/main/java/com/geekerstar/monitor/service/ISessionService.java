@@ -1,7 +1,6 @@
 package com.geekerstar.monitor.service;
 
 import com.geekerstar.monitor.entity.ActiveUser;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -10,7 +9,6 @@ import java.util.List;
  * @date 2020/2/1 12:24
  * @description
  */
-@Service
 public interface ISessionService {
 
     /**

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller("othersView")
 @RequestMapping(GeekConstant.VIEW_PREFIX + "others")
 public class ViewController {
+
     @GetMapping("geek/form")
     @RequiresPermissions("geek:form:view")
     public String geekForm() {

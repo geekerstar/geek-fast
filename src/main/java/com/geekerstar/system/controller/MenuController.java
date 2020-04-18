@@ -15,10 +15,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -36,10 +36,10 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("menu")
+@RequiredArgsConstructor
 public class MenuController extends BaseController {
 
-    @Autowired
-    private IMenuService menuService;
+    private final IMenuService menuService;
 
     @GetMapping("{username}")
     @Weblog(description = "获取用户菜单")

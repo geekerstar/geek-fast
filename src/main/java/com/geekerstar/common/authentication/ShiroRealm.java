@@ -6,7 +6,6 @@ import com.geekerstar.system.entity.User;
 import com.geekerstar.system.service.IMenuService;
 import com.geekerstar.system.service.IRoleService;
 import com.geekerstar.system.service.IUserService;
-import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -15,7 +14,6 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -28,7 +26,6 @@ import java.util.stream.Collectors;
  * description: 自定义实现 ShiroRealm，包含认证和授权两大模块
  */
 @Component
-@RequiredArgsConstructor
 public class ShiroRealm extends AuthorizingRealm {
 
     private IUserService userService;
@@ -38,17 +35,17 @@ public class ShiroRealm extends AuthorizingRealm {
     private IMenuService menuService;
 
     @Autowired
-    public void setUserService(@Qualifier("IUserService") IUserService userService) {
+    public void setUserService(IUserService userService) {
         this.userService = userService;
     }
 
     @Autowired
-    public void setRoleService(@Qualifier("IRoleService") IRoleService roleService) {
+    public void setRoleService(IRoleService roleService) {
         this.roleService = roleService;
     }
 
     @Autowired
-    public void setMenuService(@Qualifier("IMenuService") IMenuService menuService) {
+    public void setMenuService(IMenuService menuService) {
         this.menuService = menuService;
     }
 

@@ -10,8 +10,6 @@ import org.quartz.JobExecutionContext;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
 import java.time.LocalDateTime;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -23,7 +21,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 @Slf4j
 public class ScheduleJob extends QuartzJobBean {
 
-    private ThreadPoolExecutor scheduleJobExecutorService = SpringContextUtil.getBean("scheduleJobExecutorService",ThreadPoolExecutor.class);
+    private ThreadPoolExecutor scheduleJobExecutorService = SpringContextUtil.getBean("scheduleJobExecutorService", ThreadPoolExecutor.class);
 
     @Override
     protected void executeInternal(JobExecutionContext context) {

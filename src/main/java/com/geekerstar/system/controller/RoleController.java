@@ -12,9 +12,9 @@ import com.geekerstar.system.service.IRoleService;
 import com.wuwenze.poi.ExcelKit;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -33,9 +33,10 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("role")
+@RequiredArgsConstructor
 public class RoleController extends BaseController {
-    @Autowired
-    private IRoleService roleService;
+
+    private final IRoleService roleService;
 
     @GetMapping
     @Weblog(description = "获取所有角色")

@@ -7,9 +7,9 @@ import com.geekerstar.monitor.service.ISessionService;
 import com.google.common.collect.Maps;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,10 +26,10 @@ import java.util.Map;
 @Api(tags = "Session日志监控")
 @RestController
 @RequestMapping("session")
+@RequiredArgsConstructor
 public class SessionController {
 
-    @Autowired
-    private ISessionService sessionService;
+    private final ISessionService sessionService;
 
     @GetMapping("list")
     @Weblog(description = "在线用户列表")

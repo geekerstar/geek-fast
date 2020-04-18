@@ -13,9 +13,9 @@ import com.geekerstar.system.service.IDeptService;
 import com.wuwenze.poi.ExcelKit;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -33,10 +33,10 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("dept")
+@RequiredArgsConstructor
 public class DeptController {
 
-    @Autowired
-    private IDeptService deptService;
+    private final IDeptService deptService;
 
     @GetMapping("select/tree")
     @Weblog(description = "获取部门树信息(下拉列表)")

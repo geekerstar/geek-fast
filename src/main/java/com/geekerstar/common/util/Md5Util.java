@@ -9,7 +9,7 @@ import org.apache.shiro.util.ByteSource;
  * @date 2020/1/31 19:04
  * @description
  */
-public class MD5Util {
+public class Md5Util {
 
     private static final String ALGORITH_NAME = "md5";
 
