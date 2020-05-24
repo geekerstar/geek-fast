@@ -62,6 +62,8 @@ public class Dept implements Serializable {
     @ApiModelProperty(value = "创建时间")
     @TableField("create_time")
     @ExcelField(value = "创建时间", writeConverter = TimeConverter.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime createTime;
 
     @ApiModelProperty(value = "修改时间")
