@@ -5,6 +5,10 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.geekerstar.common.annotation.IsMobile;
 import com.geekerstar.common.converter.TimeConverter;
 import com.wuwenze.poi.annotation.Excel;
@@ -122,17 +126,23 @@ public class User implements Serializable {
     @ApiModelProperty(value = "创建时间")
     @TableField("create_time")
     @ExcelField(value = "创建时间", writeConverter = TimeConverter.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime createTime;
 
     @ApiModelProperty(value = "修改时间")
     @TableField("modify_time")
     @ExcelField(value = "修改时间", writeConverter = TimeConverter.class)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime modifyTime;
 
     @ApiModelProperty(value = "最近访问时间")
     @TableField("last_login_time")
     @ExcelField(value = "最近访问时间", writeConverter = TimeConverter.class)
     @JsonFormat(pattern = "yyyy年MM月dd日 HH时mm分ss秒", timezone = "GMT+8")
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime lastLoginTime;
 
     @ApiModelProperty(value = "性别 0男 1女 2保密")

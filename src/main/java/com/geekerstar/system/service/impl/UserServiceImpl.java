@@ -46,7 +46,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     private final ShiroRealm shiroRealm;
 
     @Override
-    @Cacheable(value = {"Cache:findUserDetailList"}, keyGenerator = "simpleKeyGenerator")
+//    @Cacheable(value = {"Cache:findUserDetailList"}, keyGenerator = "simpleKeyGenerator")
     public User findUserDetailList(String username) {
         User user = new User();
         user.setUsername(username);
@@ -55,7 +55,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    @Cacheable(value = {"Cache:findUserDetailList1"}, keyGenerator = "simpleKeyGenerator")
+//    @Cacheable(value = {"Cache:findUserDetailList1"}, keyGenerator = "simpleKeyGenerator")
     public IPage<User> findUserDetailList(User user, QueryRequest request) {
         Page<User> page = new Page<>(request.getPageNum(), request.getPageSize());
         SortUtil.handlePageSort(request, page, "userId", GeekConstant.ORDER_ASC, false);
@@ -63,7 +63,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
-    @Cacheable(value = {"Cache:findByName"}, keyGenerator = "simpleKeyGenerator")
+//    @Cacheable(value = {"Cache:findByName"}, keyGenerator = "simpleKeyGenerator")
     public User findByName(String username) {
         return this.baseMapper.findByName(username);
     }
