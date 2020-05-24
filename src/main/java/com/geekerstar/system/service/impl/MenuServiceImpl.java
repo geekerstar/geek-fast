@@ -15,6 +15,7 @@ import com.geekerstar.system.service.IRoleMenuService;
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,11 +40,13 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     private final ShiroRealm shiroRealm;
 
     @Override
+    @Cacheable(value = {"Cache:findUserPermissions"}, keyGenerator = "simpleKeyGenerator")
     public List<Menu> findUserPermissions(String username) {
         return this.baseMapper.findUserPermissions(username);
     }
 
     @Override
+    @Cacheable(value = {"Cache:findUserMenus"}, keyGenerator = "simpleKeyGenerator")
     public MenuTree<Menu> findUserMenus(String username) {
         List<Menu> menus = this.baseMapper.findUserMenus(username);
         List<MenuTree<Menu>> trees = this.convertMenus(menus);
@@ -51,6 +54,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     }
 
     @Override
+    @Cacheable(value = {"Cache:findMenus"}, keyGenerator = "simpleKeyGenerator")
     public MenuTree<Menu> findMenus(Menu menu) {
         QueryWrapper<Menu> queryWrapper = new QueryWrapper<>();
         if (StringUtils.isNotBlank(menu.getMenuName())) {
@@ -64,6 +68,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     }
 
     @Override
+    @Cacheable(value = {"Cache:findMenuList"}, keyGenerator = "simpleKeyGenerator")
     public List<Menu> findMenuList(Menu menu) {
         QueryWrapper<Menu> queryWrapper = new QueryWrapper<>();
         if (StringUtils.isNotBlank(menu.getMenuName())) {

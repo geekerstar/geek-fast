@@ -18,6 +18,7 @@ import com.geekerstar.system.service.IUserRoleService;
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,11 +45,13 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     private final ShiroRealm shiroRealm;
 
     @Override
+    @Cacheable(value = {"Cache:findUserRole"}, keyGenerator = "simpleKeyGenerator")
     public List<Role> findUserRole(String username) {
         return this.baseMapper.findUserRole(username);
     }
 
     @Override
+    @Cacheable(value = {"Cache:findRoles"}, keyGenerator = "simpleKeyGenerator")
     public List<Role> findRoles(Role role) {
         QueryWrapper<Role> queryWrapper = new QueryWrapper<>();
         if (StringUtils.isNotBlank(role.getRoleName())) {
@@ -58,6 +61,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     }
 
     @Override
+    @Cacheable(value = {"Cache:findRoles1"}, keyGenerator = "simpleKeyGenerator")
     public IPage<Role> findRoles(Role role, QueryRequest request) {
         Page<Role> page = new Page<>(request.getPageNum(), request.getPageSize());
         SortUtil.handlePageSort(request, page, "createTime", GeekConstant.ORDER_DESC, false);
@@ -65,6 +69,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     }
 
     @Override
+    @Cacheable(value = {"Cache:findByName"}, keyGenerator = "simpleKeyGenerator")
     public Role findByName(String roleName) {
         return this.baseMapper.selectOne(new QueryWrapper<Role>().lambda().eq(Role::getRoleName, roleName));
     }

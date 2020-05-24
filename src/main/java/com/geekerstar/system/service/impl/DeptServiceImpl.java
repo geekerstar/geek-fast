@@ -14,6 +14,7 @@ import com.geekerstar.system.mapper.DeptMapper;
 import com.geekerstar.system.service.IDeptService;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +34,7 @@ import java.util.List;
 public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements IDeptService {
 
     @Override
+    @Cacheable(value = {"Cache:findDepts"}, keyGenerator = "simpleKeyGenerator")
     public List<DeptTree<Dept>> findDepts() {
         List<Dept> deptList = this.baseMapper.selectList(new QueryWrapper<>());
         List<DeptTree<Dept>> treeList = this.convertDepts(deptList);
@@ -40,6 +42,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
     }
 
     @Override
+    @Cacheable(value = {"Cache:findDepts1"}, keyGenerator = "simpleKeyGenerator")
     public List<DeptTree<Dept>> findDepts(Dept dept) {
         QueryWrapper<Dept> queryWrapper = new QueryWrapper<>();
         if (StringUtils.isNotBlank(dept.getDeptName())) {
@@ -52,6 +55,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
     }
 
     @Override
+    @Cacheable(value = {"Cache:findDepts2"}, keyGenerator = "simpleKeyGenerator")
     public List<Dept> findDepts(Dept dept, QueryRequest request) {
         QueryWrapper<Dept> queryWrapper = new QueryWrapper<>();
         if (StringUtils.isNotBlank(dept.getDeptName())) {

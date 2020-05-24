@@ -21,6 +21,7 @@ import com.geekerstar.system.service.IUserService;
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,6 +46,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     private final ShiroRealm shiroRealm;
 
     @Override
+    @Cacheable(value = {"Cache:findUserDetailList"}, keyGenerator = "simpleKeyGenerator")
     public User findUserDetailList(String username) {
         User user = new User();
         user.setUsername(username);
@@ -53,6 +55,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
+    @Cacheable(value = {"Cache:findUserDetailList1"}, keyGenerator = "simpleKeyGenerator")
     public IPage<User> findUserDetailList(User user, QueryRequest request) {
         Page<User> page = new Page<>(request.getPageNum(), request.getPageSize());
         SortUtil.handlePageSort(request, page, "userId", GeekConstant.ORDER_ASC, false);
@@ -60,6 +63,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
+    @Cacheable(value = {"Cache:findByName"}, keyGenerator = "simpleKeyGenerator")
     public User findByName(String username) {
         return this.baseMapper.findByName(username);
     }
