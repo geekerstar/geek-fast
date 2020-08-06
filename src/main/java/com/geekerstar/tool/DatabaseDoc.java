@@ -22,9 +22,9 @@ public class DatabaseDoc {
         //数据源
         HikariConfig hikariConfig = new HikariConfig();
         hikariConfig.setDriverClassName("com.mysql.jdbc.Driver");
-        hikariConfig.setJdbcUrl("jdbc:mysql://39.107.25.229:3306/geek_base");
-        hikariConfig.setUsername("root");
-        hikariConfig.setPassword("root");
+        hikariConfig.setJdbcUrl("");
+        hikariConfig.setUsername("");
+        hikariConfig.setPassword("");
         //设置可以获取tables remarks信息
         hikariConfig.addDataSourceProperty("useInformationSchema", "true");
         hikariConfig.setMinimumIdle(2);
